@@ -1,6 +1,6 @@
 let pdfLibPromise=null;
 async function loadPdfLib(){
-  if(!pdfLibPromise) pdfLibPromise=import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs');
+  if(!pdfLibPromise) pdfLibPromise=import('./pdf.min.mjs').catch(()=>import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs'));
   return pdfLibPromise;
 }
 async function extract(buffer){
