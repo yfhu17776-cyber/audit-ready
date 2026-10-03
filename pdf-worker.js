@@ -1,5 +1,5 @@
 let ready=false;
-try{importScripts('./pdf.min.js');ready=!!self.pdfjsLib}catch(error){self.__pdfLoadError=String(error&&error.message||error)}
+try{importScripts('./pdf.min.js')}catch(error){try{importScripts('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js')}catch(e){self.__pdfLoadError=String(e&&e.message||e)}} ready=!!self.pdfjsLib
 async function extract(buffer){
  if(!ready)throw Error(self.__pdfLoadError||'PDF.js failed to load');
  const doc=await self.pdfjsLib.getDocument({data:buffer,disableWorker:true,useWasm:false}).promise;
