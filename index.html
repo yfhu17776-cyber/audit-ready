@@ -97,15 +97,17 @@ const name=pick(p,['subcontractor','subcontractor name','vendor','vendor name','
 const pd=date(pick(p,['payment date','date paid','paid date','check date','payment_date','date']));
 const amt=money(pick(p,['amount paid','payment amount','paid amount','amount','total']));
 const outside=!!(as&&ae&&pd&&(pd<as||pd>ae));
-const matches=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name));
-const rel=matches.filter(relevant);
+const vendorMatch=bestVendorEvidence(name);const matches=vendorMatch.rows;const rel=matches.filter(relevant);
+const possibleNameMismatch=!vendorMatch.exact&&matches.length>0;
 const covered=rel.filter(c=>{const m=evMeta(c);return pd&&m.a&&m.b&&m.a<=pd&&pd<=m.b});
 const wcCovered=covered.filter(c=>evMeta(c).type==='Workers Comp'||evMeta(c).type==='Self-Insurance');
 const unknownCovered=covered.filter(c=>evMeta(c).type==='Unknown/Review');
 let status='';let action='';let reason='';
 if(!name){status='Missing subcontractor';reason='Payment has no vendor/subcontractor name.';action='Fix the source payment row.'}
 else if(!pd){status='Invalid payment date';reason='Payment date is missing or invalid.';action='Fix the source payment row.'}
+else if(amt<=0){status='Review amount';reason='Payment amount is zero or negative.';action='Confirm this is a real subcontractor payment before relying on the row.'}
 else if(outside){status='Outside audit period';reason='Payment falls outside the stated audit window.';action='Confirm whether this payment belongs in the audit population.'}
+else if(wcCovered.length&&possibleNameMismatch){status='Possible vendor name mismatch';reason='A similar vendor name has date-covered Workers’ Comp evidence, but the names are not an exact match.';action='Confirm the vendor identity manually before treating the evidence as supporting this payment.'}
 else if(wcCovered.length){status='Matched';reason='Workers’ Comp/self-insurance evidence covers the payment date.';action='No exception; retain the evidence reference.'}
 else if(unknownCovered.length){status='Matched — review evidence type';reason='A potentially relevant record covers the date, but its policy type is ambiguous.';action='Human-review the source document/type before relying on it.'}
 else if(rel.length){status='Date/evidence gap';reason='Potentially relevant evidence exists, but no record covers the payment date.';action='Check renewal/expiration dates and locate the missing-period evidence.'}
