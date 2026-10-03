@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AuditReady — Find What’s Missing Before Your Workers’ Comp Audit</title>
+<title>AuditReady — Workers’ Comp Audit Evidence Check</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1080px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}.brand{font-size:24px;font-weight:800}.pill{background:#e9f7ef;color:#166534;border:1px solid #b7e4c7;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dfe5ee;border-radius:16px;box-shadow:0 5px 20px #14213d0a}.hero{padding:30px}.hero h1{font-size:34px;line-height:1.08;margin:0 0 10px}.hero p{color:#5d6878;max-width:800px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{padding:18px}.card h2{font-size:18px;margin:0 0 10px}.drop{border:2px dashed #b8c2d1;border-radius:13px;padding:24px;text-align:center;background:#fafbfd;cursor:pointer}.drop.drag{border-color:#2563eb;background:#eff6ff}.small{font-size:12px;color:#697586}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#172033;color:#fff}.secondary{background:#eef2f7;color:#172033}.danger{background:#fff1f2;color:#b42318}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.inputrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.notice{background:#eef6ff;border:1px solid #c9def7;border-radius:10px;padding:11px;color:#174a7a}.success{background:#eefaf2;border:1px solid #bfe5cb;border-radius:10px;padding:13px;color:#17633a}.warning{background:#fff8e8;border:1px solid #f2d28b;border-radius:10px;padding:13px;color:#76520a}.dangerbox{background:#fff1f2;border:1px solid #f2c7cd;border-radius:10px;padding:13px;color:#8d1d2b}.hide{display:none}input{font:inherit}.tag{display:inline-block;border:1px solid #d8dee8;border-radius:999px;padding:2px 7px;font-size:11px;background:#fff}.muted{color:#697586}.actiongrid{display:grid;grid-template-columns:1.1fr 1fr 1.5fr 1.8fr;gap:0;border:1px solid #e5eaf1;border-radius:12px;overflow:hidden}.actiongrid>div{padding:11px;border-bottom:1px solid #edf0f4}.actiongrid .head{background:#f8fafc;font-weight:700;font-size:12px}.actiongrid .problem{font-weight:700}.actiongrid .next{color:#174a7a}.details{margin-top:9px;border-top:1px solid #edf0f4;padding-top:8px}.details summary{cursor:pointer;color:#475467;font-size:12px}.count{font-size:30px;font-weight:800}.subhead{color:#697586;font-size:13px;margin-top:-4px;margin-bottom:14px}.mini{display:flex;gap:12px;align-items:center}.mini b{font-size:22px}.bar{height:8px;background:#e8edf3;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:#4b7}@media(max-width:800px){.grid,.inputrow,.actiongrid{grid-template-columns:1fr}.hero h1{font-size:28px}.actiongrid .head{display:none}.actiongrid>div{border-bottom:0}.actiongrid>div:not(.head){padding:7px 11px}.actiongrid>div:not(.head):before{content:attr(data-label);display:block;font-size:11px;color:#697586;margin-bottom:2px}.actiongrid{display:block}.actiongrid>div:nth-last-child(-n+4){border-bottom:1px solid #edf0f4}.top{align-items:flex-start;flex-direction:column}}@media print{.top,.hero,#inputs,.no-print,.footer{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:0}body{background:#fff}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="brand">AuditReady</div><div class="pill">PRIVATE · RUNS IN YOUR BROWSER</div></div>
+<div class="top"><div class="brand">AuditReady</div><div class="pill">PRIVATE · YOUR FILES STAY IN YOUR BROWSER</div></div>
 
 <section class="hero">
 <h1>Find what’s missing before your Workers’ Comp audit.</h1>
-<p>Upload your subcontractor payment records and Workers’ Comp evidence. AuditReady checks the dates and connections and gives you a simple list of <b>what needs attention and what to find next.</b></p>
+<p>Drop in the records you already have. AuditReady connects <b>payments → subcontractor → Workers’ Comp evidence → coverage dates</b> and gives you a short exception list with the next action.</p>
+<div class="notice" style="margin-top:14px"><b>Built for the audit moment.</b> Not a daily COI tracker. It is designed to help a California contractor reconstruct the evidence behind subcontractor payments before a Workers’ Comp premium/payroll audit.</div>
 </section>
 
 <div id="inputs">
@@ -20,9 +22,10 @@
 <div><label class="small">Audit period end</label><input id="auditEnd" type="date" style="width:100%;padding:9px;border:1px solid #ccd4df;border-radius:9px"></div>
 </div>
 <div class="grid" style="margin-top:12px">
-<div><h2 style="font-size:16px">1. Payment records</h2><div id="paydrop" class="drop">Tap to choose CSV<br><span class="small">Your subcontractor/vendor payments</span><input id="payfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="payinfo" class="small" style="margin-top:8px">No payment file loaded.</div><div id="paymap" class="small" style="margin-top:6px"></div></div>
-<div><h2 style="font-size:16px">2. Workers’ Comp evidence</h2><div id="evdrop" class="drop">Tap to choose CSV<br><span class="small">Certificates, self-insurance or exemption records</span><input id="evfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="evinfo" class="small" style="margin-top:8px">No evidence file loaded.</div><div id="evmap" class="small" style="margin-top:6px"></div></div>
+<div><h2 style="font-size:16px">1. Payment records</h2><div id="paydrop" class="drop">Tap to choose CSV or Excel<br><span class="small">Your subcontractor/vendor payments</span><input id="payfile" type="file" accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hide"></div><div id="payinfo" class="small" style="margin-top:8px">No payment file loaded.</div><div id="paymap" class="small" style="margin-top:6px"></div></div>
+<div><h2 style="font-size:16px">2. Workers’ Comp evidence</h2><div id="evdrop" class="drop">Tap to choose CSV or Excel<br><span class="small">Certificates, self-insurance or exemption records</span><input id="evfile" type="file" accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hide"></div><div id="evinfo" class="small" style="margin-top:8px">No evidence file loaded.</div><div id="evmap" class="small" style="margin-top:6px"></div></div>
 </div>
+<div class="notice" style="margin-top:12px"><b>What you get:</b> vendor/date matching, coverage gaps, wrong evidence type, missing dates, name mismatches, and a downloadable review list. Excel files are converted locally in your browser.</div>
 <div class="row" style="margin-top:12px"><button class="btn primary" id="run">Find Problems</button><button class="btn secondary" id="sample">Try a sample</button><button class="btn secondary" id="clear">Clear</button></div>
 <div id="msg" class="small" style="margin-top:9px"></div>
 </div>
@@ -46,9 +49,18 @@
 </div>
 
 <div class="card" style="margin-top:14px">
-<h2>Save your review list</h2>
+<h2>Ready to hand off</h2>
+<div class="subhead">Use the exception list as your working checklist. Export it for your bookkeeper, insurance administrator, broker, or auditor.</div>
+
 <div class="row no-print"><button class="btn primary" id="csv">Download review list</button><button class="btn secondary" id="mapcsv">Download payment-evidence map</button><button class="btn secondary" id="print">Print / Save PDF</button></div>
 </div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Paid pilot</h2>
+<div class="subhead">If this catches a gap you would otherwise have found manually, the next version can turn the same workflow into a paid audit-prep service with document reading and evidence reconstruction.</div>
+<div class="row"><span class="tag">One audit</span><span class="tag">No subscription required</span><span class="tag">California contractors first</span></div>
+<div class="small" style="margin-top:9px">For now the self-serve checker is free while we validate the workflow with real audit records.</div>
 </div>
 
 <div class="footer"><b>Scope:</b> AuditReady is an evidence-preparation tool for U.S. California Workers’ Comp premium/payroll audit preparation, initially focused on construction contractors using subcontractors. It does not decide legal contractor status, payroll/exposure inclusion, classification, coverage validity or final premium. A “match” is an evidence/date match in the imported records, not a legal or insurance determination.<br><br><b>Privacy:</b> files are parsed locally by browser JavaScript; this page has no server upload function. Do not use it as a substitute for an insurer, auditor, accountant or attorney.</div>
@@ -59,10 +71,10 @@ let payments=[],evidence=[],results=[];
 const $=id=>document.getElementById(id);
 function openPicker(drop,input){drop.addEventListener('click',()=>input.click());drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0]){input.files=e.dataTransfer.files;input.dispatchEvent(new Event('change'))}})}
 openPicker($('paydrop'),$('payfile'));openPicker($('evdrop'),$('evfile'));
-$('payfile').onchange=async()=>{const f=$('payfile').files[0];if(!f)return;payments=parseCSV(await f.text(),f.name);$('payinfo').textContent='Loaded '+payments.length+' payment rows.';showMapping('paymap',payments[0],'payments')};
-$('evfile').onchange=async()=>{const f=$('evfile').files[0];if(!f)return;evidence=parseCSV(await f.text(),f.name);$('evinfo').textContent='Loaded '+evidence.length+' evidence rows.';showMapping('evmap',evidence[0],'evidence')};
+$('payfile').onchange=async()=>{const f=$('payfile').files[0];if(!f)return;try{payments=await readTableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMapping('paymap',payments[0],'payments')}catch(e){$('payinfo').textContent='Could not read this file: '+e.message}};
+$('evfile').onchange=async()=>{const f=$('evfile').files[0];if(!f)return;try{evidence=await readTableFile(f);$('evinfo').textContent='Loaded '+evidence.length+' evidence rows from '+f.name+'.';showMapping('evmap',evidence[0],'evidence')}catch(e){$('evinfo').textContent='Could not read this file: '+e.message}};
 
-function parseCSV(t,sourceFile=''){t=String(t||'').replace(/^\uFEFF/,'');let rows=[],row=[],cell='',q=false;
+async function readTableFile(f){const ext=f.name.toLowerCase().split('.').pop();if(ext==='csv'||f.type==='text/csv'||!ext){return parseCSV(await f.text(),f.name)}if(['xlsx','xls'].includes(ext)){if(typeof XLSX==='undefined')throw new Error('Excel reader is still loading. Wait a moment and try again.');const data=await f.arrayBuffer();const wb=XLSX.read(data,{type:'array',cellDates:true});const ws=wb.Sheets[wb.SheetNames[0]];const rows=XLSX.utils.sheet_to_json(ws,{defval:'',raw:false});return rows.map((o,i)=>{const x={};Object.keys(o).forEach(k=>x[String(k).trim().toLowerCase()]=String(o[k]??'').trim());x._row=i+2;x._sourceFile=f.name;return x})}throw new Error('Use CSV, XLSX, or XLS.')}\nfunction parseCSV(t,sourceFile=''){t=String(t||'').replace(/^\uFEFF/,'');let rows=[],row=[],cell='',q=false;
 for(let i=0;i<t.length;i++){let c=t[i],n=t[i+1];if(c==='"'&&q&&n==='"'){cell+='"';i++;continue}if(c==='"'){q=!q;continue}if(c===','&&!q){row.push(cell);cell='';continue}if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[];continue}cell+=c}
 row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(!rows.length)return[];const h=rows[0].map(x=>x.trim().toLowerCase());return rows.slice(1).map((r,ri)=>{const o=Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()]));o._row=ri+2;o._sourceFile=sourceFile;return o})}
 function detectedColumn(o,keys){if(!o)return'';const ks=Object.keys(o).filter(k=>!k.startsWith('_'));for(const k of keys){const x=ks.find(z=>z===k)||ks.find(z=>z.includes(k));if(x)return x}return''}
