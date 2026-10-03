@@ -29,7 +29,7 @@ try {
  const pay=path.join(dir,'synthetic-payments.csv'); await fs.writeFile(pay,rows.join('\n'));
  await page.locator('#auditStart').fill('2024-01-01'); await page.locator('#auditEnd').fill('2026-12-31');
  await page.locator('#payfile').setInputFiles(pay); await page.locator('#evfile').setInputFiles(files);
- await page.waitForFunction(()=>/Processed 50 \/ 50 evidence files/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:300000}); await page.waitForFunction(()=>/Loaded 30 evidence records from 30 file/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:30000});
+ await page.waitForFunction(()=>/Processed 30 \/ 30 evidence files/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:300000}); await page.waitForFunction(()=>/Loaded 30 evidence records from 30 file/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:30000});
  await page.locator('#run').click(); await page.locator('#results').waitFor({state:'visible',timeout:90000});
  const summary=Number(await page.locator('#sumPayments').innerText()); const attention=Number(await page.locator('#sumAttention').innerText()); const matched=Number(await page.locator('#sumMatched').innerText()); const low=Number(await page.locator('#sumLow').innerText());
  if(summary!==30) throw new Error('Expected 30 payments, got '+summary); if(attention!==6) throw new Error('Expected 6 attention cases, got '+attention); if(matched!==24) throw new Error('Expected 24 matched cases, got '+matched); if(low!==0) throw new Error('Expected 0 low-confidence cases, got '+low);
