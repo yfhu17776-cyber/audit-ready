@@ -45,6 +45,8 @@ try {
   const stages=[1,10,20];
   for(const count of stages){
     await page.locator('#clear').click().catch(()=>{});
+    await page.locator('#auditStart').fill('2024-01-01');
+    await page.locator('#auditEnd').fill('2026-12-31');
     await page.locator('#payfile').setInputFiles(pay);
     await page.locator('#evfile').setInputFiles(files.slice(0,count));
 
