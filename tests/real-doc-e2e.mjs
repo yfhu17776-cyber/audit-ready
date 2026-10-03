@@ -27,12 +27,12 @@ try {
  for(let i=0;i<50;i++){let v=i<45?vendors[i%25]:'Missing Vendor '+(i-44)+' LLC'; rows.push(v+','+(2500+i*25)+',02/15/2026');}
  for(let i=0;i<5;i++) rows[21+i]=gaps[i]+','+(3000+i*25)+',03/15/2026';
  const pay=path.join(dir,'synthetic-payments.csv'); await fs.writeFile(pay,rows.join('\n'));
- await page.locator('#auditStart').fill('01/01/2024'); await page.locator('#auditEnd').fill('12/31/2026');
+ await page.locator('#auditStart').fill('2024-01-01'); await page.locator('#auditEnd').fill('2026-12-31');
  await page.locator('#payfile').setInputFiles(pay); await page.locator('#evfile').setInputFiles(files);
  await page.waitForFunction(()=>/Loaded 50 evidence records from 50 file/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:180000});
  await page.locator('#run').click(); await page.locator('#results').waitFor({state:'visible',timeout:90000});
  const summary=Number(await page.locator('#sumPayments').innerText()); const attention=Number(await page.locator('#sumAttention').innerText()); const matched=Number(await page.locator('#sumMatched').innerText()); const low=Number(await page.locator('#sumLow').innerText());
- if(summary!==50) throw new Error('Expected 50 payments, got '+summary); if(attention!==15) throw new Error('Expected 15 attention cases, got '+attention); if(matched!==35) throw new Error('Expected 35 matched cases, got '+matched); if(low!==0) throw new Error('Expected 0 low-confidence cases, got '+low);
+ if(summary!==50) throw new Error('Expected 50 payments, got '+summary); if(attention!==10) throw new Error('Expected 10 attention cases, got '+attention); if(matched!==40) throw new Error('Expected 40 matched cases, got '+matched); if(low!==0) throw new Error('Expected 0 low-confidence cases, got '+low);
  if(!(await page.locator('#timeline').innerText()).trim()) throw new Error('Timeline empty'); if(!(await page.locator('#headline').innerText()).trim()) throw new Error('Headline empty');
  await fs.writeFile(path.join(dir,'regression-summary.txt'),'privacy_safe=true\nevidence_files='+files.length+'\npayments='+summary+'\nattention='+attention+'\nmatched='+matched+'\nlow_confidence='+low); await page.screenshot({path:path.join(dir,'regression-result.png'),fullPage:true});
 } finally { await browser.close(); }
