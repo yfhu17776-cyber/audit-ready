@@ -19,23 +19,17 @@ function vendorMatches(name){let exact=evidence.filter(e=>norm(meta(e).vendor)==
 function showMap(id,row,kind){if(!row){$(id).textContent='';return}let f=kind==='pay'?[["Vendor",keys.vendor],["Amount",keys.amount],["Date",keys.pdate]]:[["Vendor",keys.vendor],["Type",keys.etype],["Effective",keys.start],["Expiration",keys.end]];$(id).innerHTML='<b>Detected:</b> '+f.map(a=>a[0]+' = <span style="color:'+(pick(row,a[1])?'#17633a':'#b42318')+'">'+esc(pick(row,a[1])||'not found')+'</span>').join(' · ')}
 $('payfile').onchange=async()=>{let f=$('payfile').files[0];if(!f)return;try{payments=await tableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMap('paymap',payments[0],'pay')}catch(e){$('payinfo').textContent='Could not read the file: '+e.message}};
 async function pdfTextDirect(file){
-  const lib=await loadPdfLib(),b=await file.arrayBuffer();
-  if(lib.GlobalWorkerOptions) lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
-  let doc=null;
-  try{
-    doc=await lib.getDocument({data:b,useWorkerFetch:true,isEvalSupported:true}).promise;
-    const parts=[];
-    for(let i=1;i<=doc.numPages;i++){
-      const page=await doc.getPage(i);
-      const tc=await page.getTextContent();
-      const txt=tc.items.map(x=>x.str).join(' ').replace(/\\s+/g,' ').trim();
-      parts.push(i===1?txt:'\\n[Page '+i+'] '+txt);
-      page.cleanup();
-    }
-    return parts.join(' ');
-  }finally{
-    if(doc){try{await doc.destroy()}catch{}}
-  }
+  const worker=new Worker('./pdf-worker.js');
+  const id=Math.random().toString(36).slice(2);
+  const b=await file.arrayBuffer();
+  return await new Promise((resolve,reject)=>{
+    let settled=false;
+    const finish=(fn,v)=>{if(settled)return;settled=true;clearTimeout(timer);worker.onmessage=null;worker.onerror=null;worker.terminate();fn(v)};
+    const timer=setTimeout(()=>finish(reject,Error('PDF text extraction timed out after 45s')),45000);
+    worker.onmessage=e=>{const d=e.data||{};if(d.id!==id)return;if(d.ok)finish(resolve,d.text||'');else finish(reject,Error(d.error||'PDF extraction failed'))};
+    worker.onerror=e=>finish(reject,Error(e.message||'PDF worker failed'));
+    worker.postMessage({id,buffer:b},[b]);
+  });
 }
 async function pdfTextWithOCR(file){
   const lib=await loadPdfLib(),b=await file.arrayBuffer();
