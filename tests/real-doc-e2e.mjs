@@ -1,10 +1,13 @@
 import { chromium } from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-const site='https://yfhu17776-cyber.github.io/audit-ready/';
+import {spawn} from 'node:child_process';
+const site='http://127.0.0.1:4173/index.html';
 const dir=path.resolve('test-artifacts');
 await fs.rm(dir,{recursive:true,force:true});
 await fs.mkdir(dir,{recursive:true});
+const server=spawn('python3',['-m','http.server','4173','--bind','127.0.0.1'],{stdio:'ignore'});
+await new Promise(r=>setTimeout(r,1500));
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});
 try {
@@ -35,4 +38,4 @@ try {
  if(summary!==30) throw new Error('Expected 30 payments, got '+summary); if(attention!==6) throw new Error('Expected 6 attention cases, got '+attention); if(matched!==24) throw new Error('Expected 24 matched cases, got '+matched); if(low!==0) throw new Error('Expected 0 low-confidence cases, got '+low);
  if(!(await page.locator('#timeline').innerText()).trim()) throw new Error('Timeline empty'); if(!(await page.locator('#headline').innerText()).trim()) throw new Error('Headline empty');
  await fs.writeFile(path.join(dir,'regression-summary.txt'),'privacy_safe=true\nevidence_files='+files.length+'\npayments='+summary+'\nattention='+attention+'\nmatched='+matched+'\nlow_confidence='+low); await page.screenshot({path:path.join(dir,'regression-result.png'),fullPage:true});
-} finally { await browser.close(); }
+} finally { await browser.close(); server.kill('SIGTERM'); }
