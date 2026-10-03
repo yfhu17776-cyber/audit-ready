@@ -18,9 +18,71 @@ function classify(o){let all=(pick(o,keys.etype)+' '+pick(o,keys.ptype)+' '+pick
 function vendorMatches(name){let exact=evidence.filter(e=>norm(meta(e).vendor)===norm(name));if(exact.length)return{rows:exact,exact:true};let best=[],s0=0;for(let e of evidence){let s=sim(name,meta(e).vendor);if(s>s0){s0=s;best=[e]}else if(s===s0&&s>0)best.push(e)}return s0>=.62?{rows:best,exact:false,score:s0}:{rows:[],exact:false,score:s0}}
 function showMap(id,row,kind){if(!row){$(id).textContent='';return}let f=kind==='pay'?[["Vendor",keys.vendor],["Amount",keys.amount],["Date",keys.pdate]]:[["Vendor",keys.vendor],["Type",keys.etype],["Effective",keys.start],["Expiration",keys.end]];$(id).innerHTML='<b>Detected:</b> '+f.map(a=>a[0]+' = <span style="color:'+(pick(row,a[1])?'#17633a':'#b42318')+'">'+esc(pick(row,a[1])||'not found')+'</span>').join(' · ')}
 $('payfile').onchange=async()=>{let f=$('payfile').files[0];if(!f)return;try{payments=await tableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMap('paymap',payments[0],'pay')}catch(e){$('payinfo').textContent='Could not read the file: '+e.message}};
-async function pdfPages(file){let lib=await loadPdfLib(),b=await file.arrayBuffer(),p=await lib.getDocument({data:b}).promise,pages=[];for(let i=1;i<=p.numPages;i++){let pg=await p.getPage(i),tc=await pg.getTextContent(),txt=tc.items.map(x=>x.str).join(' ').replace(/\\s+/g,' ').trim();pages.push({page:i,text:txt,pdfPage:pg})}return pages}
+let pdfWorker = null;
+let pdfWorkerSeq = 0;
+const pdfWorkerPending = new Map();
+
+function getPdfWorker(){
+  if(pdfWorker) return pdfWorker;
+  pdfWorker = new Worker('./pdf-worker.js',{type:'module'});
+  pdfWorker.onmessage = ev => {
+    const {id,ok,text,error}=ev.data||{};
+    const p=pdfWorkerPending.get(id);
+    if(!p)return;
+    pdfWorkerPending.delete(id);
+    ok?p.resolve(text):p.reject(new Error(error||'PDF reader failed'));
+  };
+  pdfWorker.onerror = ev => {
+    const err=new Error(ev.message||'PDF worker failed');
+    for(const p of pdfWorkerPending.values())p.reject(err);
+    pdfWorkerPending.clear();
+    try{pdfWorker.terminate()}catch{}
+    pdfWorker=null;
+  };
+  return pdfWorker;
+}
+async function pdfTextInWorker(file){
+  const id=++pdfWorkerSeq,worker=getPdfWorker(),buffer=await file.arrayBuffer();
+  return await new Promise((resolve,reject)=>{
+    pdfWorkerPending.set(id,{resolve,reject});
+    worker.postMessage({id,buffer},[buffer]);
+  });
+}
+async function pdfTextWithOCR(file){
+  let lib=await loadPdfLib(),b=await file.arrayBuffer(),p=null,pages=[],plain='';
+  try{
+    p=await lib.getDocument({data:b}).promise;
+    for(let i=1;i<=p.numPages;i++){
+      let pg=await p.getPage(i),tc=await pg.getTextContent(),txt=tc.items.map(x=>x.str).join(' ').replace(/\s+/g,' ').trim();
+      pages.push({page:i,text:txt,pdfPage:pg});
+      plain+=(i>1?'\n':'')+txt;
+    }
+    if(plain.replace(/\s/g,'').length>=80)return plain;
+    if(!window.Tesseract)throw Error('OCR reader is still loading. Refresh once and try again.');
+    let ocr=[];
+    for(const item of pages){
+      if(item.text.replace(/\s/g,'').length>=40){ocr.push({page:item.page,text:item.text});continue}
+      let vp=item.pdfPage.getViewport({scale:1.15}),cv=document.createElement('canvas');
+      cv.width=Math.ceil(vp.width);cv.height=Math.ceil(vp.height);
+      let ctx=cv.getContext('2d');
+      await item.pdfPage.render({canvasContext:ctx,viewport:vp}).promise;
+      let rr=await Tesseract.recognize(cv,'eng');
+      ocr.push({page:item.page,text:rr.data.text||''});
+      cv.width=1;cv.height=1;
+    }
+    return ocr.map(x=>'\n[Page '+x.page+'] '+x.text).join(' ');
+  }finally{
+    if(p){try{await p.destroy()}catch{}}
+    pages.length=0;b=null;
+  }
+}
 async function withTimeout(promise,ms){let timer;try{return await Promise.race([promise,new Promise((_,rej)=>timer=setTimeout(()=>rej(Error('File processing timed out')),ms))])}finally{clearTimeout(timer)}}
-async function pdfText(file){let lib=await loadPdfLib(),b=await file.arrayBuffer(),p=null,pages=[],plain='';try{p=await lib.getDocument({data:b}).promise;for(let i=1;i<=p.numPages;i++){let pg=await p.getPage(i),tc=await pg.getTextContent(),txt=tc.items.map(x=>x.str).join(' ').replace(/\s+/g,' ').trim();pages.push({page:i,text:txt,pdfPage:pg});plain+=(i>1?'\n':'')+txt}if(plain.replace(/\s/g,'').length>=80)return plain;if(!window.Tesseract)throw Error('OCR reader is still loading. Refresh once and try again.');let ocr=[];for(const item of pages){if(item.text.replace(/\s/g,'').length>=40){ocr.push({page:item.page,text:item.text});continue}let vp=item.pdfPage.getViewport({scale:1.15}),cv=document.createElement('canvas');cv.width=Math.ceil(vp.width);cv.height=Math.ceil(vp.height);let ctx=cv.getContext('2d');await item.pdfPage.render({canvasContext:ctx,viewport:vp}).promise;let rr=await Tesseract.recognize(cv,'eng');ocr.push({page:item.page,text:rr.data.text||''});cv.width=1;cv.height=1}return ocr.map(x=>'\n[Page '+x.page+'] '+x.text).join(' ')}finally{if(p){try{await p.destroy()}catch{}}pages.length=0;b=null}}function firstMatch(text,patterns){for(const p of patterns){const m=text.match(p);if(m&&m[1])return m[1].trim().replace(/\\s{2,}/g,' ')}return''}
+async function pdfText(file){
+  const text=await pdfTextInWorker(file);
+  if(text && text.replace(/\s/g,'').length>=80)return text;
+  return await pdfTextWithOCR(file);
+}
+function firstMatch(text,patterns){for(const p of patterns){const m=text.match(p);if(m&&m[1])return m[1].trim().replace(/\\s{2,}/g,' ')}return''}
 function allDates(text){let a=[];for(const m of text.matchAll(/\\b(20\\d{2})[\\/\\-.](\\d{1,2})[\\/\\-.](\\d{1,2})\\b/g))a.push(m[0]);for(const m of text.matchAll(/\\b(\\d{1,2})[\\/\\-.](\\d{1,2})[\\/\\-.](20\\d{2})\\b/g))a.push(m[0]);return [...new Set(a)]}
 function evidenceFromText(text,file,page='document'){let raw=String(text||'').replace(/\\u0000/g,' '),t=raw.replace(/\\s+/g,' ').trim(),lo=t.toLowerCase(),dates=allDates(t);
 let vendor=firstMatch(t,[/(?:named insured|insured(?:'s)?(?: name)?|insured name)\\s*[:#-]\\s*([^|]{2,120}?)(?=\\s+(?:policy|producer|certificate|phone|email|address|city|state|zip)\\b|$)/i,/(?:insured|named insured)\\s+([^|]{2,100}?)(?=\\s+(?:policy|producer|certificate|address)\\b)/i])||file.name.replace(/\\.(pdf|png|jpg|jpeg|webp)$/i,'').replace(/[_-]+/g,' ');
