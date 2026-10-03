@@ -20,9 +20,10 @@ function showMap(id,row,kind){if(!row){$(id).textContent='';return}let f=kind===
 $('payfile').onchange=async()=>{let f=$('payfile').files[0];if(!f)return;try{payments=await tableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMap('paymap',payments[0],'pay')}catch(e){$('payinfo').textContent='Could not read the file: '+e.message}};
 async function pdfTextDirect(file){
   const lib=await loadPdfLib(),b=await file.arrayBuffer();
+  if(lib.GlobalWorkerOptions) lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
   let doc=null;
   try{
-    doc=await lib.getDocument({data:b,disableWorker:true}).promise;
+    doc=await lib.getDocument({data:b,useWorkerFetch:true,isEvalSupported:true}).promise;
     const parts=[];
     for(let i=1;i<=doc.numPages;i++){
       const page=await doc.getPage(i);
