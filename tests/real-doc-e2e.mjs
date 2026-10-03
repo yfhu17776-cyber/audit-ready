@@ -10,7 +10,7 @@ const server=spawn('python3',['-m','http.server','4173','--bind','127.0.0.1'],{s
 await new Promise(r=>setTimeout(r,1500));
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});
-const pageErrors=[]; page.on('pageerror',e=>pageErrors.push(String(e))); page.on('console',m=>{if(m.type()==='error')pageErrors.push('console:'+m.text())});
+const pageErrors=[]; page.on('pageerror',e=>pageErrors.push('pageerror:'+String(e))); page.on('console',m=>{if(m.type()==='error')pageErrors.push('console:'+m.text()+' @'+m.location().url+':'+m.location().lineNumber)});
 try {
  await page.goto(site,{waitUntil:'domcontentloaded',timeout:60000});
  await page.locator('#auditStart').waitFor({state:'visible',timeout:30000});
