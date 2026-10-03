@@ -10,6 +10,7 @@ const server=spawn('python3',['-m','http.server','4173','--bind','127.0.0.1'],{s
 await new Promise(r=>setTimeout(r,1500));
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});
+const pageErrors=[]; page.on('pageerror',e=>pageErrors.push(String(e))); page.on('console',m=>{if(m.type()==='error')pageErrors.push('console:'+m.text())});
 try {
  await page.goto(site,{waitUntil:'domcontentloaded',timeout:60000});
  await page.locator('#auditStart').waitFor({state:'visible',timeout:30000});
@@ -32,6 +33,9 @@ try {
  const pay=path.join(dir,'synthetic-payments.csv'); await fs.writeFile(pay,rows.join('\n'));
  await page.locator('#auditStart').fill('2024-01-01'); await page.locator('#auditEnd').fill('2026-12-31');
  await page.locator('#payfile').setInputFiles(pay); await page.locator('#evfile').setInputFiles(files);
+ await page.waitForTimeout(10000);
+ const early=await page.locator('#evinfo').innerText();
+ if(!/Processed|Loaded/.test(early)) throw new Error('Evidence pipeline did not start: '+early+' | '+pageErrors.join(' || '));
  await page.waitForFunction(()=>/Processed 30 \/ 30 evidence files/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:300000}); await page.waitForFunction(()=>/Loaded 30 evidence records from 30 file/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:30000});
  await page.locator('#run').click(); await page.locator('#results').waitFor({state:'visible',timeout:90000});
  const summary=Number(await page.locator('#sumPayments').innerText()); const attention=Number(await page.locator('#sumAttention').innerText()); const matched=Number(await page.locator('#sumMatched').innerText()); const low=Number(await page.locator('#sumLow').innerText());
