@@ -1,57 +1,147 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AuditReady — California Workers’ Comp Premium Audit Prep</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AuditReady — California Workers’ Comp Premium Audit Prep</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1080px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.brand{font-size:24px;font-weight:800}.pill{background:#e9f7ef;color:#166534;border:1px solid #b7e4c7;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dfe5ee;border-radius:16px;box-shadow:0 5px 20px #14213d0a}.hero{padding:28px}.hero h1{font-size:32px;line-height:1.1;margin:0 0 10px}.hero p{color:#5d6878;max-width:760px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.card{padding:20px}.card h2{font-size:18px;margin:0 0 12px}.drop{border:2px dashed #b8c2d1;border-radius:13px;padding:26px;text-align:center;background:#fafbfd;cursor:pointer}.drop.drag{border-color:#2563eb;background:#eff6ff}.small{font-size:12px;color:#697586}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer}.primary{background:#172033;color:#fff}.secondary{background:#eef2f7;color:#172033}.danger{background:#fff1f2;color:#b42318}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#f8fafc;border:1px solid #e5eaf1;border-radius:12px;padding:14px}.stat b{display:block;font-size:25px}.tablewrap{overflow:auto;max-height:430px;border:1px solid #e5eaf1;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:9px;border-bottom:1px solid #edf0f4;text-align:left;font-size:13px}th{background:#f8fafc;position:sticky;top:0}.ok{color:#147a3d}.warn{color:#a15c00}.bad{color:#b42318}.note{background:#fff8e8;border:1px solid #f2d28b;border-radius:10px;padding:12px;color:#76520a}.footer{margin:18px 0;color:#6b7280;font-size:12px}.hide{display:none}input{font:inherit}@media(max-width:760px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}}
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1120px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}.brand{font-size:24px;font-weight:800}.pill{background:#e9f7ef;color:#166534;border:1px solid #b7e4c7;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dfe5ee;border-radius:16px;box-shadow:0 5px 20px #14213d0a}.hero{padding:26px}.hero h1{font-size:31px;line-height:1.1;margin:0 0 9px}.hero p{color:#5d6878;max-width:820px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{padding:18px}.card h2{font-size:18px;margin:0 0 10px}.drop{border:2px dashed #b8c2d1;border-radius:13px;padding:24px;text-align:center;background:#fafbfd;cursor:pointer}.drop.drag{border-color:#2563eb;background:#eff6ff}.small{font-size:12px;color:#697586}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#172033;color:#fff}.secondary{background:#eef2f7;color:#172033}.danger{background:#fff1f2;color:#b42318}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.stat{background:#f8fafc;border:1px solid #e5eaf1;border-radius:12px;padding:12px}.stat b{display:block;font-size:23px}.tablewrap{overflow:auto;max-height:480px;border:1px solid #e5eaf1;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:9px;border-bottom:1px solid #edf0f4;text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;position:sticky;top:0;z-index:1}.ok{color:#147a3d}.warn{color:#a15c00}.bad{color:#b42318}.note{background:#fff8e8;border:1px solid #f2d28b;border-radius:10px;padding:11px;color:#76520a}.info{background:#eef6ff;border:1px solid #c9def7;border-radius:10px;padding:11px;color:#174a7a}.success{background:#eefaf2;border:1px solid #bfe5cb;border-radius:10px;padding:11px;color:#17633a}.footer{margin:18px 0;color:#6b7280;font-size:12px}.hide{display:none}input{font:inherit}.check{display:flex;gap:8px;align-items:center}.legend span{margin-right:12px}.summarygrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.bar{height:9px;background:#e8edf3;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:#4b7;}.tag{display:inline-block;border:1px solid #d8dee8;border-radius:999px;padding:2px 7px;font-size:11px;background:#fff}.muted{color:#697586}@media(max-width:800px){.grid,.summarygrid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}}@media print{.top,.hero,.no-print,#inputs,.footer{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:0}.tablewrap{max-height:none;overflow:visible}body{background:#fff}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="brand">AuditReady</div><div class="pill">LOCAL PROCESSING</div></div>
-<section class="hero"><h1>California Workers’ Comp Premium Audit Prep</h1><p>For California construction contractors: match subcontractor payments with Workers’ Comp insurance evidence, find date/evidence gaps, and export an exception report before a premium audit. Your files are processed in this browser and are not uploaded by this page.</p></section>
-<div class="card" style="margin-top:16px"><h2>Exact scope</h2>
-<p><b>Country:</b> United States → <b>State:</b> California → <b>System:</b> California Workers’ Compensation insurance → <b>Audit:</b> insurer premium/payroll audit → <b>Initial industry:</b> construction contractors using subcontractors.</p>
-<p class="small"><b>What this checks:</b> whether a subcontractor payment has corresponding Workers’ Comp evidence in the imported records and whether the evidence dates cover the payment date. <b>What it does not decide:</b> whether a subcontractor is legally an independent contractor, whether a payment must be included in audited payroll/exposure, the correct classification code, or the final premium.</p>
-<div class="note" style="margin-top:10px"><b>Basis:</b> California premium audits examine payroll/exposure and classification. WCIRB rules require insurers to audit employer records, and California construction businesses must maintain Workers’ Comp evidence where required. This tool is an evidence-preparation layer only; the insurer/auditor makes the coverage, classification, exposure, and premium determinations.</div>
+<div class="top"><div class="brand">AuditReady</div><div class="pill">LOCAL PROCESSING · NO FILE UPLOAD</div></div>
+<section class="hero"><h1>California Workers’ Comp Premium Audit Prep</h1><p>Reconstruct the evidence trail behind subcontractor payments before a premium audit: match payments to Workers’ Comp evidence, detect coverage-period gaps and missing records, and export a review-ready exception report.</p></section>
+
+<div class="card" style="margin-top:14px"><h2>Exact scope</h2>
+<p><b>United States → California → Workers’ Compensation insurance → insurer premium/payroll audit → construction contractors using subcontractors.</b></p>
+<div class="info"><b>What AuditReady does:</b> maps each payment to imported evidence by subcontractor and date, then shows exactly which payments need human follow-up. <b>What it does not decide:</b> legal independent-contractor status, payroll/exposure inclusion, classification code, coverage validity, or final premium.</div>
+<p class="small" style="margin-bottom:0">“Matched” means the imported records contain evidence that appears to be Workers’ Comp-related and whose dates cover the payment date. It is an evidence match, not a legal or insurance determination.</p>
 </div>
-<div class="card" style="margin-top:16px"><h2>Layer 1 — Define the audit period</h2><div class="grid" style="margin-top:0">
-<div><label class="small">Audit period start</label><input id="auditStart" type="date" style="width:100%;padding:10px;border:1px solid #ccd4df;border-radius:9px"></div>
-<div><label class="small">Audit period end</label><input id="auditEnd" type="date" style="width:100%;padding:10px;border:1px solid #ccd4df;border-radius:9px"></div>
-</div><p class="small" style="margin-bottom:0">Optional. If entered, the report also flags payments outside the stated audit period. This does not determine the insurer’s final audit exposure.</p></div>
+
+<div id="inputs">
+<div class="card" style="margin-top:14px"><h2>1 — Set the audit period</h2><div class="grid" style="margin-top:0">
+<div><label class="small">Audit period start</label><input id="auditStart" type="date" style="width:100%;padding:9px;border:1px solid #ccd4df;border-radius:9px"></div>
+<div><label class="small">Audit period end</label><input id="auditEnd" type="date" style="width:100%;padding:9px;border:1px solid #ccd4df;border-radius:9px"></div>
+</div><p class="small" style="margin:7px 0 0">Optional. If supplied, payments outside this window are separated from evidence exceptions.</p></div>
+
 <div class="grid">
-<div class="card"><h2>Layer 2 — Import subcontractor payments</h2><div id="paydrop" class="drop">Tap to choose a CSV file<br><span class="small">subcontractor/vendor · amount paid · payment date</span><input id="payfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="payinfo" class="small" style="margin-top:9px">No payment file loaded.</div></div>
-<div class="card"><h2>Layer 3 — Import evidence records</h2><div id="coidrop" class="drop">Tap to choose a CSV file<br><span class="small">subcontractor/vendor · evidence type · policy type · effective · expiration · policy number</span><input id="coifile" type="file" accept=".csv,text/csv" class="hide"></div><div id="coiinfo" class="small" style="margin-top:9px">No evidence file loaded.</div></div>
+<div class="card"><h2>2 — Import subcontractor payments</h2><div id="paydrop" class="drop">Tap to choose CSV<br><span class="small">subcontractor/vendor · amount paid · payment date</span><input id="payfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="payinfo" class="small" style="margin-top:8px">No payment file loaded.</div></div>
+<div class="card"><h2>3 — Import evidence records</h2><div id="evdrop" class="drop">Tap to choose CSV<br><span class="small">subcontractor/vendor · evidence type · policy type · effective · expiration · policy number</span><input id="evfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="evinfo" class="small" style="margin-top:8px">No evidence file loaded.</div></div>
 </div>
-<div class="card" style="margin-top:16px"><h2>Layer 4 — Run evidence reconstruction</h2><div class="row"><button class="btn primary" id="run">Analyze locally</button><button class="btn secondary" id="sample">Load sample data</button><button class="btn danger" id="clear">Clear</button></div><div id="msg" class="small" style="margin-top:10px"></div></div>
+
+<div class="card" style="margin-top:14px"><h2>4 — Reconstruct the evidence trail</h2>
+<div class="row"><button class="btn primary" id="run">Analyze locally</button><button class="btn secondary" id="sample">Load stress-test sample</button><button class="btn danger" id="clear">Clear</button></div>
+<div id="msg" class="small" style="margin-top:9px"></div>
+</div></div>
+
 <div id="results" class="hide">
-<div class="card" style="margin-top:16px"><h2>Results</h2><div class="stats"><div class="stat"><span>Payments</span><b id="s1">0</b></div><div class="stat"><span>Evidence matched</span><b id="s2">0</b></div><div class="stat"><span>Exceptions</span><b id="s3">0</b></div><div class="stat"><span>Amount in exceptions</span><b id="s4">$0</b></div></div>
-<div class="note" style="margin-top:12px">Layer 5 is the decision-support report: <b>Green = evidence found</b>; <b>Amber/Red = investigate</b>. The report does not decide payroll inclusion, independent-contractor status, classification, or premium.</div></div>
-<div class="card" style="margin-top:16px"><h2>Exceptions</h2><div class="note">This is an evidence-preparation tool, not insurance, accounting, legal, classification, payroll, or coverage advice. <b>Matched</b> means the imported records contain Workers’ Comp-type evidence whose dates cover the payment date. A match does <b>not</b> mean the payment is legally excludable from audited payroll/exposure.</div><div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Subcontractor</th><th>Payment date</th><th>Amount</th><th>Evidence status</th><th>Coverage / policy</th><th>Action</th></tr></thead><tbody id="tbody"></tbody></table></div></div>
-<div class="card" style="margin-top:16px"><h2>Export</h2><div class="row"><button class="btn primary" id="csv">Download exception CSV</button><button class="btn secondary" id="print">Print / Save PDF</button></div></div>
+<div class="card" style="margin-top:14px"><h2>5 — Audit exception report</h2>
+<div class="stats">
+<div class="stat"><span>Payments</span><b id="s1">0</b></div>
+<div class="stat"><span>Evidence matched</span><b id="s2">0</b></div>
+<div class="stat"><span>Exceptions</span><b id="s3">0</b></div>
+<div class="stat"><span>Exception $</span><b id="s4">$0</b></div>
+<div class="stat"><span>Vendors with gaps</span><b id="s5">0</b></div>
 </div>
-<div class="footer"><b>California basis:</b> California Department of Insurance explains that final Workers’ Comp premium is determined after payroll records are audited. WCIRB’s USRP governs payroll audit and classification reporting. California construction contractors also have Workers’ Comp certificate/self-insurance requirements. Sources: <a href="https://www.insurance.ca.gov/01-consumers/105-type/95-guides/09-comm/WorkersCompensation.cfm" target="_blank" rel="noopener">California Department of Insurance</a> · <a href="https://www.wcirb.com/products-and-services/classification-search/usrp-part-3-section-vi-rule-4-audit-payroll" target="_blank" rel="noopener">WCIRB USRP Rule 4</a> · <a href="https://web.cslb.ca.gov/Contractors/Maintain_License/Workers_Compensation.aspx" target="_blank" rel="noopener">CSLB Workers’ Compensation Requirements</a><br>Privacy: files are read with browser JavaScript only. This app does not contain a server upload function. Do not use it as a substitute for advice from your insurer, auditor, accountant, or attorney.</div>
+<div id="quality" style="margin-top:12px"></div>
 </div>
+
+<div class="summarygrid" style="margin-top:14px">
+<div class="card"><h2>Evidence coverage by vendor</h2><div id="vendorSummary" class="small">—</div></div>
+<div class="card"><h2>Evidence continuity</h2><div id="continuity" class="small">—</div></div>
+</div>
+
+<div class="card" style="margin-top:14px"><h2>Exceptions and review queue</h2>
+<div class="note">This report is intentionally conservative. A non-WC certificate does not become Workers’ Comp evidence just because it is a certificate. A blank policy type is flagged for review when the record looks potentially relevant. Human review is required for ambiguous evidence.</div>
+<div class="tablewrap" style="margin-top:11px"><table><thead><tr><th>Subcontractor</th><th>Payment date</th><th>Amount</th><th>Status</th><th>Evidence found</th><th>Coverage / policy</th><th>Why / next action</th></tr></thead><tbody id="tbody"></tbody></table></div></div>
+
+<div class="card" style="margin-top:14px"><h2>Export</h2><div class="row no-print"><button class="btn primary" id="csv">Download exception CSV</button><button class="btn secondary" id="mapcsv">Download payment-evidence map</button><button class="btn secondary" id="print">Print / Save PDF</button></div><p class="small">The payment-evidence map is useful for the auditor/accountant review because it preserves the source mapping rather than only listing exceptions.</p></div>
+</div>
+
+<div class="footer"><b>Regulatory basis:</b> California Department of Insurance explains that final Workers’ Comp premium is determined after payroll records are audited; insurers generally have audit rights during the policy period and for three years after. WCIRB Rule 4 requires insurers to audit employer records and states that audit reports show the payroll source(s). This tool is an evidence-preparation layer only. Sources: <a href="https://www.insurance.ca.gov/01-consumers/105-type/95-guides/09-comm/WorkersCompensation.cfm" target="_blank" rel="noopener">California Department of Insurance</a> · <a href="https://www.wcirb.com/products-and-services/classification-search/usrp-part-3-section-vi-rule-4-audit-payroll" target="_blank" rel="noopener">WCIRB USRP Rule 4</a>.<br><br><b>Privacy:</b> files are parsed locally by browser JavaScript; this page has no server upload function. Do not use it as a substitute for an insurer, auditor, accountant, or attorney.</div>
+</div>
+
 <script>
-let payments=[],cois=[],results=[];
+let payments=[],evidence=[],results=[],vendorRows=[],continuityRows=[];
 const $=id=>document.getElementById(id);
 function openPicker(drop,input){drop.addEventListener('click',()=>input.click());drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0]){input.files=e.dataTransfer.files;input.dispatchEvent(new Event('change'))}})}
-openPicker($('paydrop'),$('payfile'));openPicker($('coidrop'),$('coifile'));
-$('payfile').onchange=async()=>{payments=parseCSV(await $('payfile').files[0].text());$('payinfo').textContent=`Loaded ${payments.length} payment rows.`};
-$('coifile').onchange=async()=>{cois=parseCSV(await $('coifile').files[0].text());$('coiinfo').textContent=`Loaded ${cois.length} COI rows.`};
-function parseCSV(t){t=String(t||'').replace(/^\uFEFF/,'');let rows=[],row=[],cell='',q=false;for(let i=0;i<t.length;i++){let c=t[i],n=t[i+1];if(c==='"'&&q&&n==='"'){cell+='"';i++;continue}if(c==='"'){q=!q;continue}if(c===','&&!q){row.push(cell);cell='';continue}if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);row=[];cell='';continue}cell+=c}row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(!rows.length)return[];let h=rows[0].map(x=>x.trim().toLowerCase());return rows.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()])))}
-function pick(o,keys){let ks=Object.keys(o);for(let k of keys){let x=ks.find(z=>z===k)||ks.find(z=>z.includes(k));if(x&&o[x])return o[x]}return ''}
-function date(x){x=String(x||'').trim();if(!x)return null;let m=x.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})$/);if(m){let d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));return d.getUTCFullYear()===+m[1]&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[3]?d:null}m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);if(m){let y=+m[3];if(y<100)y+=2000;let d=new Date(Date.UTC(y,+m[1]-1,+m[2]));return d.getUTCFullYear()===y&&d.getUTCMonth()===+m[1]-1&&d.getUTCDate()===+m[2]?d:null}let d=new Date(x);return isNaN(d)?null:d}
-function money(x){return +(String(x).replace(/[$,\s]/g,'').replace(/\((.*?)\)/,'-$1'))||0}
+openPicker($('paydrop'),$('payfile'));openPicker($('evdrop'),$('evfile'));
+$('payfile').onchange=async()=>{const f=$('payfile').files[0];if(!f)return;payments=parseCSV(await f.text());$('payinfo').textContent='Loaded '+payments.length+' payment rows.'};
+$('evfile').onchange=async()=>{const f=$('evfile').files[0];if(!f)return;evidence=parseCSV(await f.text());$('evinfo').textContent='Loaded '+evidence.length+' evidence rows.'};
+
+function parseCSV(t){t=String(t||'').replace(/^\uFEFF/,'');let rows=[],row=[],cell='',q=false;
+for(let i=0;i<t.length;i++){let c=t[i],n=t[i+1];if(c==='"'&&q&&n==='"'){cell+='"';i++;continue}if(c==='"'){q=!q;continue}if(c===','&&!q){row.push(cell);cell='';continue}if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[];continue}cell+=c}
+row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(!rows.length)return[];
+const h=rows[0].map(x=>x.trim().toLowerCase());return rows.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()])))}
+function pick(o,keys){const ks=Object.keys(o);for(const k of keys){const x=ks.find(z=>z===k)||ks.find(z=>z.includes(k));if(x&&o[x]!==undefined&&String(o[x]).trim()!=='')return String(o[x]).trim()}return''}
+function date(x){x=String(x||'').trim();if(!x)return null;
+let m=x.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})$/);if(m){const d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));return d.getUTCFullYear()===+m[1]&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[3]?d:null}
+m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);if(m){let y=+m[3];if(y<100)y+=2000;const d=new Date(Date.UTC(y,+m[1]-1,+m[2]));return d.getUTCFullYear()===y&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[1]?d:null}
+const d=new Date(x);return isNaN(d)?null:d}
+function money(x){const s=String(x||'').replace(/[$,\s]/g,'').replace(/\((.*?)\)/,'-$1');const n=Number(s);return Number.isFinite(n)?n:0}
 function norm(x){return String(x||'').toLocaleLowerCase().replace(/&/g,'and').replace(/[^\p{L}\p{N}]/gu,'')}
-function analyze(){if(!payments.length||!cois.length){$('msg').textContent='Load both CSV files first, or use Sample data.';return}results=payments.map(p=>{let name=pick(p,['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']);let pd=date(pick(p,['payment date','date paid','paid date','check date','payment_date','date']));let amt=money(pick(p,['amount paid','payment amount','paid amount','amount','total']));let auditA=date($('auditStart').value),auditB=date($('auditEnd').value);let outsideAudit=auditA&&auditB&&pd&&(pd<auditA||pd>auditB);let matches=cois.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name));let eligible=matches.filter(c=>{let type=pick(c,['policy type','coverage type','line of business','lob','policy']);let ev=pick(c,['evidence type','document type','record type','evidence']);return !type||/workers?\s*comp|workers?\s*compensation|work\s*comp/i.test(type)||/workers?\s*comp|certificate|self.?insurance|exemption/i.test(ev)});let covered=eligible.filter(c=>{let a=date(pick(c,['effective date','start date','from','effective'])),b=date(pick(c,['expiration date','end date','to','expiration','expires']));return pd&&a&&b&&a<=pd&&pd<=b});let evidenceType=covered.length?pick(covered[0],['evidence type','document type','record type','evidence']):'';let missingType=covered.some(c=>!pick(c,['policy type','coverage type','line of business','lob','policy']));let status=!name?'Missing subcontractor':!pd?'Invalid payment date':outsideAudit?'Outside audit period':covered.length?(missingType?'Matched — review policy type':'Matched'):eligible.length?'Date/evidence gap':matches.length?'Non-WC evidence only':'No Workers’ Comp evidence';let coverage='';if(covered.length){let a=date(pick(covered[0],['effective date','start date','from','effective'])),b=date(pick(covered[0],['expiration date','end date','to','expiration','expires']));coverage=(evidenceType?evidenceType+' · ':'')+fmtDate(a)+' – '+fmtDate(b)+(pick(covered[0],['policy number','policy no','policy #'])?' · '+pick(covered[0],['policy number','policy no','policy #']):'')}return{name,pd,amt,status,coverage,action:status.startsWith('Matched')?(missingType?'Review policy type manually':'None'):status==='Outside audit period'?'Confirm audit period / payment scope':status==='Date/evidence gap'?'Check renewal, certificate, self-insurance or other evidence':status==='Non-WC evidence only'?'Check Workers’ Comp evidence':'Review source data / obtain applicable Workers’ Comp evidence'}});render()}
+function typeOf(c){
+const pt=pick(c,['policy type','coverage type','line of business','lob','policy']);
+const et=pick(c,['evidence type','document type','record type','evidence']);
+const all=(pt+' '+et).toLowerCase();
+if(/workers?\s*(comp|compensation)|wc\b/.test(pt.toLowerCase()))return'Workers Comp';
+if(/self.?insurance/.test(all)&&!/(general liability|auto|umbrella)/.test(pt.toLowerCase()))return'Self-Insurance';
+if(/exemption/.test(all))return'Exemption';
+if(!pt&&/workers?\s*(comp|compensation)|self.?insurance|exemption|certificate/.test(et.toLowerCase()))return'Unknown/Review';
+return'Other/Non-WC'}
+function evMeta(c){return{type:typeOf(c),a:date(pick(c,['effective date','start date','from','effective'])),b:date(pick(c,['expiration date','end date','to','expiration','expires'])),policy:pick(c,['policy number','policy no','policy #']),source:pick(c,['source','file','document','evidence source'])}}
+function relevant(c){const t=typeOf(c);return t==='Workers Comp'||t==='Self-Insurance'||t==='Exemption'||t==='Unknown/Review'}
 function fmtDate(d){return d?d.toISOString().slice(0,10):''}
-function render(){$('results').classList.remove('hide');let gaps=results.filter(x=>!x.status.startsWith('Matched'));$('s1').textContent=results.length;$('s2').textContent=results.filter(x=>x.status.startsWith('Matched')).length;$('s3').textContent=gaps.length;$('s4').textContent='$'+gaps.reduce((a,x)=>a+x.amt,0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});$('tbody').innerHTML=results.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.pd?fmtDate(x.pd):'Unknown'}</td><td>$${x.amt.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td><td class="${x.status==='Matched'?'ok':'bad'}">${x.status}</td><td>${esc(x.coverage)}</td><td>${esc(x.action)}</td></tr>`).join('')}
-function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-$('sample').onclick=()=>{payments=parseCSV(`subcontractor,amount paid,payment date
-ABC Roofing LLC,12500,2026-06-15
-Bright HVAC Inc,8400,2026-06-20
-Delta Electric,6300,2026-07-02
-`);cois=parseCSV(`subcontractor,policy type,effective date,expiration date
-ABC Roofing LLC,Workers Comp,2026-01-01,2026-12-31
-Bright HVAC Inc,Workers Comp,2025-01-01,2026-05-31
-`);$('auditStart').value='2026-01-01';$('auditEnd').value='2026-12-31';$('payinfo').textContent='Loaded sample payment data.';$('coiinfo').textContent='Loaded sample evidence data.';$('msg').textContent='Sample data loaded. Click Analyze locally.'};
-$('run').onclick=analyze;$('clear').onclick=()=>{payments=[];cois=[];results=[];$('results').classList.add('hide');$('payinfo').textContent='No payment file loaded.';$('coiinfo').textContent='No COI file loaded.';$('msg').textContent='Cleared.'};
-$('csv').onclick=()=>{let h='Subcontractor,Payment Date,Amount,Evidence Status,Coverage,Action\n';let body=results.filter(x=>!x.status.startsWith('Matched')).map(x=>[x.name,fmtDate(x.pd),x.amt,x.status,x.coverage,x.action].map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([h+body],{type:'text/csv'}));a.download='auditready-exceptions.csv';a.click()};$('print').onclick=()=>window.print();
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function analyze(){
+if(!payments.length||!evidence.length){$('msg').textContent='Load both CSV files first, or use the stress-test sample.';return}
+const as=date($('auditStart').value),ae=date($('auditEnd').value);
+results=payments.map((p,i)=>{
+const name=pick(p,['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']);
+const pd=date(pick(p,['payment date','date paid','paid date','check date','payment_date','date']));
+const amt=money(pick(p,['amount paid','payment amount','paid amount','amount','total']));
+const outside=!!(as&&ae&&pd&&(pd<as||pd>ae));
+const matches=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name));
+const rel=matches.filter(relevant);
+const covered=rel.filter(c=>{const m=evMeta(c);return pd&&m.a&&m.b&&m.a<=pd&&pd<=m.b});
+const wcCovered=covered.filter(c=>evMeta(c).type==='Workers Comp'||evMeta(c).type==='Self-Insurance');
+const unknownCovered=covered.filter(c=>evMeta(c).type==='Unknown/Review');
+let status='';let action='';let reason='';
+if(!name){status='Missing subcontractor';reason='Payment has no vendor/subcontractor name.';action='Fix the source payment row.'}
+else if(!pd){status='Invalid payment date';reason='Payment date is missing or invalid.';action='Fix the source payment row.'}
+else if(outside){status='Outside audit period';reason='Payment falls outside the stated audit window.';action='Confirm whether this payment belongs in the audit population.'}
+else if(wcCovered.length){status='Matched';reason='Workers’ Comp/self-insurance evidence covers the payment date.';action='No exception; retain the evidence reference.'}
+else if(unknownCovered.length){status='Matched — review evidence type';reason='A potentially relevant record covers the date, but its policy type is ambiguous.';action='Human-review the source document/type before relying on it.'}
+else if(rel.length){status='Date/evidence gap';reason='Potentially relevant evidence exists, but no record covers the payment date.';action='Check renewal/expiration dates and locate the missing-period evidence.'}
+else if(matches.length){status='Non-WC evidence only';reason='Records exist for this vendor, but they do not identify Workers’ Comp/self-insurance evidence.';action='Locate applicable Workers’ Comp evidence; do not treat another certificate as WC proof.'}
+else{status='No Workers’ Comp evidence';reason='No matching evidence record was found for this vendor.';action='Locate the applicable Workers’ Comp/self-insurance record and review the payment.'}
+const shown=(wcCovered.length?wcCovered:unknownCovered).map(c=>{const m=evMeta(c);return{...m,label:m.type+' · '+fmtDate(m.a)+' – '+fmtDate(m.b)+(m.policy?' · '+m.policy:'')}}).slice(0,3);
+return{row:i,name,pd,amt,status,reason,action,covered:shown,matchCount:matches.length,sourceCount:rel.length}}
+);
+buildSummaries(as,ae);render()}
+function buildSummaries(as,ae){
+const names=[...new Set(results.map(x=>x.name).filter(Boolean))];
+vendorRows=names.map(name=>{const rs=results.filter(x=>norm(x.name)===norm(name));const matched=rs.filter(x=>x.status==='Matched').length;const exceptions=rs.filter(x=>x.status!=='Matched'&&x.status!=='Outside audit period').length;return{name,payments:rs.length,matched,exceptions,amount:rs.reduce((a,x)=>a+x.amt,0)}});
+continuityRows=names.map(name=>{
+const cs=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name)&&relevant(c)).map(evMeta).filter(m=>m.a&&m.b).sort((a,b)=>a.a-b.a);
+let gaps=[];for(let i=1;i<cs.length;i++){const prev=cs[i-1],cur=cs[i];if(cur.a>prev.b&&cur.a-prev.b>86400000)gaps.push({from:fmtDate(prev.b),to:fmtDate(cur.a)})}
+return{name,records:cs.length,gaps}}
+)}
+function render(){
+$('results').classList.remove('hide');
+const matched=results.filter(x=>x.status==='Matched'), exceptions=results.filter(x=>!['Matched','Outside audit period'].includes(x.status)),outside=results.filter(x=>x.status==='Outside audit period');
+$('s1').textContent=results.length;$('s2').textContent=matched.length;$('s3').textContent=exceptions.length;$('s4').textContent='$'+exceptions.reduce((a,x)=>a+x.amt,0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+$('s5').textContent=new Set(exceptions.map(x=>norm(x.name)).filter(Boolean)).size;
+const pct=results.length?Math.round(matched.length/results.length*100):0;
+$('quality').innerHTML='<div class="'+(exceptions.length?'note':'success')+'"><b>'+pct+'% of payments have a direct evidence match.</b> '+exceptions.length+' payment(s) need review'+(outside.length?' · '+outside.length+' outside the stated audit period':'')+'. This is a review queue, not a compliance verdict.</div>';
+$('vendorSummary').innerHTML=vendorRows.map(v=>'<div style="margin-bottom:11px"><div><b>'+esc(v.name)+'</b> <span class="tag">'+v.matched+'/'+v.payments+' matched</span></div><div class="bar" style="margin:5px 0"><i style="width:'+Math.round(v.matched/v.payments*100)+'%"></i></div><div class="muted">'+v.exceptions+' review item(s) · $'+v.amount.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' total payments</div></div>').join('')||'—';
+$('continuity').innerHTML=continuityRows.map(v=>'<div style="margin-bottom:10px"><b>'+esc(v.name)+'</b> · '+v.records+' dated evidence record(s)'+(v.gaps.length?' · <span class="bad">'+v.gaps.length+' gap(s)</span>':' · <span class="ok">no date gap detected</span>')+(v.gaps.length?'<div class="muted">Gap: '+v.gaps.map(g=>esc(g.from)+' → '+esc(g.to)).join('; ')+'</div>':'')+'</div>').join('')||'—';
+$('tbody').innerHTML=results.map(x=>{const ev=x.covered.map(e=>esc(e.label)).join('<br>')||'—';const cls=x.status==='Matched'?'ok':x.status.includes('review')?'warn':'bad';return '<tr><td>'+esc(x.name)+'</td><td>'+esc(fmtDate(x.pd)||'Unknown')+'</td><td>$'+x.amt.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td class="'+cls+'"><b>'+esc(x.status)+'</b></td><td>'+ev+'</td><td>'+esc(x.covered.length?x.covered[0].label:'No covered evidence')+'</td><td><b>'+esc(x.reason)+'</b><br><span class="muted">'+esc(x.action)+'</span></td></tr>'}).join('')}
+$('sample').onclick=()=>{
+payments=parseCSV('subcontractor,amount paid,payment date\nABC Roofing LLC,12500,2026-06-15\nBright HVAC Inc,8400,2026-06-20\nBright HVAC Inc,4200,2026-06-05\nDelta Electric,6300,2026-07-02\nNorthstar Concrete,9800,2026-08-12\nGeneral Vendor LLC,5100,2026-07-10\n');
+evidence=parseCSV('subcontractor,policy type,evidence type,effective date,expiration date,policy number,source\nABC Roofing LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-12-31,WC-ABC-001,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2025-01-01,2026-05-31,WC-BHV-002,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2026-06-15,2027-05-31,WC-BHV-003,renewal.csv\nDelta Electric,,Certification of Self-Insurance,2026-01-01,2026-12-31,SI-DELTA-003,self-insurance.csv\nNorthstar Concrete,General Liability,Certificate of Insurance,2026-01-01,2026-12-31,GL-NC-004,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-06-30,WC-GV-005,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-07-15,2026-12-31,WC-GV-006,renewal.csv\n');
+$('auditStart').value='2026-01-01';$('auditEnd').value='2026-12-31';$('payinfo').textContent='Loaded stress-test payments (6 rows).';$('evinfo').textContent='Loaded stress-test evidence (7 rows).';$('msg').textContent='Stress-test data loaded. It includes renewal gaps, self-insurance, non-WC certificates and name/date edge cases.'};
+$('run').onclick=analyze;
+$('clear').onclick=()=>{payments=[];evidence=[];results=[];vendorRows=[];continuityRows=[];$('results').classList.add('hide');$('payinfo').textContent='No payment file loaded.';$('evinfo').textContent='No evidence file loaded.';$('msg').textContent='Cleared.';$('auditStart').value='';$('auditEnd').value=''};
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function csvCell(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
+$('csv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Evidence Found','Coverage / Policy','Reason','Action'];const b=results.filter(x=>x.status!=='Matched').map(x=>[x.name,fmtDate(x.pd),x.amt,x.status,x.covered.map(e=>e.label).join(' | '),x.covered.length?x.covered[0].label:'',x.reason,x.action]);download('auditready-exceptions.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
+$('mapcsv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Evidence Type','Effective Date','Expiration Date','Policy Number','Evidence Source'];const b=results.flatMap(x=>x.covered.length?x.covered.map(e=>[x.name,fmtDate(x.pd),x.amt,x.status,e.type,fmtDate(e.a),fmtDate(e.b),e.policy,e.source]):[[x.name,fmtDate(x.pd),x.amt,x.status,'','','','','']]);download('auditready-payment-evidence-map.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
+$('print').onclick=()=>window.print();
 </script></body></html>
