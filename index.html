@@ -18,53 +18,29 @@ function classify(o){let all=(pick(o,keys.etype)+' '+pick(o,keys.ptype)+' '+pick
 function vendorMatches(name){let exact=evidence.filter(e=>norm(meta(e).vendor)===norm(name));if(exact.length)return{rows:exact,exact:true};let best=[],s0=0;for(let e of evidence){let s=sim(name,meta(e).vendor);if(s>s0){s0=s;best=[e]}else if(s===s0&&s>0)best.push(e)}return s0>=.62?{rows:best,exact:false,score:s0}:{rows:[],exact:false,score:s0}}
 function showMap(id,row,kind){if(!row){$(id).textContent='';return}let f=kind==='pay'?[["Vendor",keys.vendor],["Amount",keys.amount],["Date",keys.pdate]]:[["Vendor",keys.vendor],["Type",keys.etype],["Effective",keys.start],["Expiration",keys.end]];$(id).innerHTML='<b>Detected:</b> '+f.map(a=>a[0]+' = <span style="color:'+(pick(row,a[1])?'#17633a':'#b42318')+'">'+esc(pick(row,a[1])||'not found')+'</span>').join(' · ')}
 $('payfile').onchange=async()=>{let f=$('payfile').files[0];if(!f)return;try{payments=await tableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMap('paymap',payments[0],'pay')}catch(e){$('payinfo').textContent='Could not read the file: '+e.message}};
-const PDF_POOL_SIZE=3,PDF_TASK_TIMEOUT=45000;
-let pdfPool=null,pdfTaskSeq=0;
-function createPdfPool(){
-  if(pdfPool)return pdfPool;
-  const slots=Array.from({length:PDF_POOL_SIZE},()=>({worker:null,busy:false,task:null}));
-  const queue=[];
-  const spawn=(slot)=>{
-    if(slot.worker)slot.worker.terminate();
-    const w=new Worker('./pdf-worker.js');
-    slot.worker=w; slot.busy=false; slot.task=null;
-    w.onmessage=e=>{
-      const d=e.data||{},t=slot.task;
-      if(!t||d.id!==t.id)return;
-      slot.task=null;slot.busy=false;clearTimeout(t.timer);
-      if(d.ok)t.resolve(d.text||'');else t.reject(Error(d.error||'PDF extraction failed'));
-      pump();
-    };
-    w.onerror=e=>{
-      const t=slot.task;
-      if(t){slot.task=null;slot.busy=false;clearTimeout(t.timer);t.reject(Error(e.message||'PDF worker failed'))}
-      spawn(slot);pump();
-    };
-  };
-  const pump=()=>{
-    for(const slot of slots){
-      if(slot.busy||!queue.length)continue;
-      const t=queue.shift();slot.busy=true;slot.task=t;
-      t.timer=setTimeout(()=>{
-        if(slot.task!==t)return;
-        slot.task=null;slot.busy=false;
-        t.reject(Error('PDF text extraction timed out after 45s'));
-        spawn(slot);pump();
-      },PDF_TASK_TIMEOUT);
-      t.file.arrayBuffer().then(buffer=>{
-        if(slot.task===t)slot.worker.postMessage({id:t.id,buffer},[buffer]);
-      }).catch(err=>{
-        if(slot.task===t){slot.task=null;slot.busy=false;clearTimeout(t.timer);t.reject(err);pump()}
-      });
+const PDF_TASK_TIMEOUT=30000;
+let pdfLibPromise=null;
+async function loadPdfLib(){if(!pdfLibPromise)pdfLibPromise=import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs");return pdfLibPromise}
+async function pdfTextDirect(file){
+  const lib=await loadPdfLib();
+  const buffer=await file.arrayBuffer();
+  const doc=await lib.getDocument({data:buffer,disableWorker:true,useWasm:false}).promise;
+  try{
+    const parts=[];
+    for(let i=1;i<=doc.numPages;i++){
+      const page=await doc.getPage(i);
+      const tc=await page.getTextContent();
+      const txt=tc.items.map(x=>x.str||'').join(' ').replace(/\s+/g,' ').trim();
+      if(txt)parts.push(i===1?txt:'[Page '+i+'] '+txt);
+      page.cleanup();
     }
-  };
-  for(const s of slots)spawn(s);
-  pdfPool={slots,queue,pump};
-  return pdfPool;
+    return parts.join(' ').replace(/\s+/g,' ').trim();
+  }finally{try{await doc.destroy()}catch{}}
 }
-function pdfTextDirect(file){
-  const pool=createPdfPool();
-  return new Promise((resolve,reject)=>{pool.queue.push({id:'p'+(++pdfTaskSeq),file,resolve,reject,timer:null});pool.pump()});
+async function pdfText(file){
+  const text=await withTimeout(pdfTextDirect(file),PDF_TASK_TIMEOUT);
+  if(text && text.replace(/\s/g,'').length>=80)return text;
+  return await pdfTextWithOCR(file);
 }
 async function pdfTextWithOCR(file){
   const lib=await loadPdfLib(),b=await file.arrayBuffer();
