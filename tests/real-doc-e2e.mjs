@@ -68,7 +68,7 @@ try {
       const matched=Number(await page.locator('#sumMatched').innerText());
       const low=Number(await page.locator('#sumLow').innerText());
       if(summary!==20) throw new Error('Expected 20 payments, got '+summary);
-      if(attention!==0) throw new Error('Expected 0 attention cases, got '+attention);
+      if(attention!==0){const diag=await page.locator('#attention').innerText().catch(()=> '');const map=await page.locator('#mapview').innerText().catch(()=> '');throw new Error('Expected 0 attention cases, got '+attention+' | ATTENTION='+diag.slice(0,3000)+' | MAP='+map.slice(0,3000));}
       if(matched!==20) throw new Error('Expected 20 matched cases, got '+matched);
       if(low!==0) throw new Error('Expected 0 low-confidence cases, got '+low);
     }
