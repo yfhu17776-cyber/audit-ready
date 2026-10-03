@@ -1,192 +1,113 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AuditReady — California Workers’ Comp Premium Audit Prep</title>
+<title>AuditReady — Find What’s Missing Before Your Workers’ Comp Audit</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1120px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}.brand{font-size:24px;font-weight:800}.pill{background:#e9f7ef;color:#166534;border:1px solid #b7e4c7;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dfe5ee;border-radius:16px;box-shadow:0 5px 20px #14213d0a}.hero{padding:26px}.hero h1{font-size:31px;line-height:1.1;margin:0 0 9px}.hero p{color:#5d6878;max-width:820px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{padding:18px}.card h2{font-size:18px;margin:0 0 10px}.drop{border:2px dashed #b8c2d1;border-radius:13px;padding:24px;text-align:center;background:#fafbfd;cursor:pointer}.drop.drag{border-color:#2563eb;background:#eff6ff}.small{font-size:12px;color:#697586}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#172033;color:#fff}.secondary{background:#eef2f7;color:#172033}.danger{background:#fff1f2;color:#b42318}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.stat{background:#f8fafc;border:1px solid #e5eaf1;border-radius:12px;padding:12px}.stat b{display:block;font-size:23px}.tablewrap{overflow:auto;max-height:480px;border:1px solid #e5eaf1;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:9px;border-bottom:1px solid #edf0f4;text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;position:sticky;top:0;z-index:1}.ok{color:#147a3d}.warn{color:#a15c00}.bad{color:#b42318}.note{background:#fff8e8;border:1px solid #f2d28b;border-radius:10px;padding:11px;color:#76520a}.info{background:#eef6ff;border:1px solid #c9def7;border-radius:10px;padding:11px;color:#174a7a}.success{background:#eefaf2;border:1px solid #bfe5cb;border-radius:10px;padding:11px;color:#17633a}.footer{margin:18px 0;color:#6b7280;font-size:12px}.hide{display:none}input{font:inherit}.check{display:flex;gap:8px;align-items:center}.legend span{margin-right:12px}.summarygrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.bar{height:9px;background:#e8edf3;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:#4b7;}.tag{display:inline-block;border:1px solid #d8dee8;border-radius:999px;padding:2px 7px;font-size:11px;background:#fff}.muted{color:#697586}@media(max-width:800px){.grid,.summarygrid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero h1{font-size:27px}}@media print{.top,.hero,.no-print,#inputs,.footer{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:0}.tablewrap{max-height:none;overflow:visible}body{background:#fff}}
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#152033;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1080px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}.brand{font-size:24px;font-weight:800}.pill{background:#e9f7ef;color:#166534;border:1px solid #b7e4c7;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.hero,.card{background:#fff;border:1px solid #dfe5ee;border-radius:16px;box-shadow:0 5px 20px #14213d0a}.hero{padding:30px}.hero h1{font-size:34px;line-height:1.08;margin:0 0 10px}.hero p{color:#5d6878;max-width:800px;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{padding:18px}.card h2{font-size:18px;margin:0 0 10px}.drop{border:2px dashed #b8c2d1;border-radius:13px;padding:24px;text-align:center;background:#fafbfd;cursor:pointer}.drop.drag{border-color:#2563eb;background:#eff6ff}.small{font-size:12px;color:#697586}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#172033;color:#fff}.secondary{background:#eef2f7;color:#172033}.danger{background:#fff1f2;color:#b42318}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.inputrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.notice{background:#eef6ff;border:1px solid #c9def7;border-radius:10px;padding:11px;color:#174a7a}.success{background:#eefaf2;border:1px solid #bfe5cb;border-radius:10px;padding:13px;color:#17633a}.warning{background:#fff8e8;border:1px solid #f2d28b;border-radius:10px;padding:13px;color:#76520a}.dangerbox{background:#fff1f2;border:1px solid #f2c7cd;border-radius:10px;padding:13px;color:#8d1d2b}.hide{display:none}input{font:inherit}.tag{display:inline-block;border:1px solid #d8dee8;border-radius:999px;padding:2px 7px;font-size:11px;background:#fff}.muted{color:#697586}.actiongrid{display:grid;grid-template-columns:1.1fr 1fr 1.5fr 1.8fr;gap:0;border:1px solid #e5eaf1;border-radius:12px;overflow:hidden}.actiongrid>div{padding:11px;border-bottom:1px solid #edf0f4}.actiongrid .head{background:#f8fafc;font-weight:700;font-size:12px}.actiongrid .problem{font-weight:700}.actiongrid .next{color:#174a7a}.details{margin-top:9px;border-top:1px solid #edf0f4;padding-top:8px}.details summary{cursor:pointer;color:#475467;font-size:12px}.count{font-size:30px;font-weight:800}.subhead{color:#697586;font-size:13px;margin-top:-4px;margin-bottom:14px}.mini{display:flex;gap:12px;align-items:center}.mini b{font-size:22px}.bar{height:8px;background:#e8edf3;border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:#4b7}@media(max-width:800px){.grid,.inputrow,.actiongrid{grid-template-columns:1fr}.hero h1{font-size:28px}.actiongrid .head{display:none}.actiongrid>div{border-bottom:0}.actiongrid>div:not(.head){padding:7px 11px}.actiongrid>div:not(.head):before{content:attr(data-label);display:block;font-size:11px;color:#697586;margin-bottom:2px}.actiongrid{display:block}.actiongrid>div:nth-last-child(-n+4){border-bottom:1px solid #edf0f4}.top{align-items:flex-start;flex-direction:column}}@media print{.top,.hero,#inputs,.no-print,.footer{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:0}body{background:#fff}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="brand">AuditReady</div><div class="pill">LOCAL PROCESSING · NO FILE UPLOAD</div></div>
-<section class="hero"><h1>California Workers’ Comp Premium Audit Prep</h1><p>Reconstruct the evidence trail behind subcontractor payments before a premium audit: match payments to Workers’ Comp evidence, detect coverage-period gaps and missing records, and export a review-ready exception report.</p></section>
+<div class="top"><div class="brand">AuditReady</div><div class="pill">PRIVATE · RUNS IN YOUR BROWSER</div></div>
 
-<div class="card" style="margin-top:14px"><h2>Exact scope</h2>
-<p><b>United States → California → Workers’ Compensation insurance → insurer premium/payroll audit → construction contractors using subcontractors.</b></p>
-<div class="info"><b>What AuditReady does:</b> maps each payment to imported evidence by subcontractor and date, then shows exactly which payments need human follow-up. <b>What it does not decide:</b> legal independent-contractor status, payroll/exposure inclusion, classification code, coverage validity, or final premium.</div>
-<p class="small" style="margin-bottom:0">A <b>review item</b> means the current imported records are insufficient or ambiguous for the payment/evidence link. “Matched” means the imported records contain evidence that appears to be Workers’ Comp-related and whose dates cover the payment date. It is an evidence match, not a legal or insurance determination.</p>
-</div>
+<section class="hero">
+<h1>Find what’s missing before your Workers’ Comp audit.</h1>
+<p>Upload your subcontractor payment records and Workers’ Comp evidence. AuditReady checks the dates and connections and gives you a simple list of <b>what needs attention and what to find next.</b></p>
+</section>
 
 <div id="inputs">
-<div class="card" style="margin-top:14px"><h2>1 — Set the audit period</h2><div class="grid" style="margin-top:0">
+<div class="card" style="margin-top:14px">
+<h2>Start here</h2>
+<div class="inputrow">
 <div><label class="small">Audit period start</label><input id="auditStart" type="date" style="width:100%;padding:9px;border:1px solid #ccd4df;border-radius:9px"></div>
 <div><label class="small">Audit period end</label><input id="auditEnd" type="date" style="width:100%;padding:9px;border:1px solid #ccd4df;border-radius:9px"></div>
-</div><p class="small" style="margin:7px 0 0">Optional. If supplied, payments outside this window are separated from evidence exceptions.</p></div>
-
-<div class="grid">
-<div class="card"><h2>2 — Import subcontractor payments</h2><div id="paydrop" class="drop">Tap to choose CSV<br><span class="small">subcontractor/vendor · amount paid · payment date</span><input id="payfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="payinfo" class="small" style="margin-top:8px">No payment file loaded.</div><div id="paymap" class="small" style="margin-top:7px"></div></div>
-<div class="card"><h2>3 — Import evidence records</h2><div id="evdrop" class="drop">Tap to choose CSV<br><span class="small">subcontractor/vendor · evidence type · policy type · effective · expiration · policy number</span><input id="evfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="evinfo" class="small" style="margin-top:8px">No evidence file loaded.</div><div id="evmap" class="small" style="margin-top:7px"></div></div>
 </div>
-
-<div class="card" style="margin-top:14px"><h2>4 — Reconstruct the evidence trail</h2>
-<div class="row"><button class="btn primary" id="run">Analyze locally</button><button class="btn secondary" id="sample">Load stress-test sample</button><button class="btn danger" id="clear">Clear</button></div>
+<div class="grid" style="margin-top:12px">
+<div><h2 style="font-size:16px">1. Payment records</h2><div id="paydrop" class="drop">Tap to choose CSV<br><span class="small">Your subcontractor/vendor payments</span><input id="payfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="payinfo" class="small" style="margin-top:8px">No payment file loaded.</div><div id="paymap" class="small" style="margin-top:6px"></div></div>
+<div><h2 style="font-size:16px">2. Workers’ Comp evidence</h2><div id="evdrop" class="drop">Tap to choose CSV<br><span class="small">Certificates, self-insurance or exemption records</span><input id="evfile" type="file" accept=".csv,text/csv" class="hide"></div><div id="evinfo" class="small" style="margin-top:8px">No evidence file loaded.</div><div id="evmap" class="small" style="margin-top:6px"></div></div>
+</div>
+<div class="row" style="margin-top:12px"><button class="btn primary" id="run">Find Problems</button><button class="btn secondary" id="sample">Try a sample</button><button class="btn secondary" id="clear">Clear</button></div>
 <div id="msg" class="small" style="margin-top:9px"></div>
-</div></div>
+</div>
+</div>
 
 <div id="results" class="hide">
-<div class="card" style="margin-top:14px"><h2>5 — Audit exception report</h2>
-<div class="stats">
-<div class="stat"><span>Payments</span><b id="s1">0</b></div>
-<div class="stat"><span>Evidence matched</span><b id="s2">0</b></div>
-<div class="stat"><span>Exceptions</span><b id="s3">0</b></div>
-<div class="stat"><span>Exception $</span><b id="s4">$0</b></div>
-<div class="stat"><span>Vendors with gaps</span><b id="s5">0</b></div>
-</div>
-<div id="quality" style="margin-top:12px"></div>
+<div class="card" style="margin-top:14px">
+<div class="mini"><div><div class="count" id="attentionCount">0</div><div class="subhead">payments needing attention</div></div><div style="flex:1"><div id="headline"></div></div></div>
 </div>
 
-<div class="summarygrid" style="margin-top:14px">
-<div class="card"><h2>Evidence coverage by vendor</h2><div id="vendorSummary" class="small">—</div></div>
-<div class="card"><h2>Evidence continuity</h2><div id="continuity" class="small">—</div></div>
+<div class="card" style="margin-top:14px">
+<h2>Needs attention</h2>
+<div class="subhead">This is the work left for you. Each row tells you what happened and what to look for next.</div>
+<div id="attention"></div>
 </div>
 
-<div class="card" style="margin-top:14px"><h2>Exceptions and review queue</h2>
-<div class="info" style="margin-bottom:11px"><b>Every review item answers four questions:</b> where is the problem, why was it flagged, what evidence was found, and what should the user do next. Tap/click the “Why” detail on any row for the full evidence chain.</div><div id="filters" class="row no-print" style="margin-bottom:10px"></div><div class="note">This report is intentionally conservative. A non-WC certificate does not become Workers’ Comp evidence just because it is a certificate. A blank policy type is flagged for review when the record looks potentially relevant. Human review is required for ambiguous evidence.</div>
-<div class="tablewrap" style="margin-top:11px"><table><thead><tr><th>Subcontractor</th><th>Payment date</th><th>Amount</th><th>Status</th><th>Evidence found</th><th>Coverage / policy</th><th>Why / next action</th></tr></thead><tbody id="tbody"></tbody></table></div></div>
-
-<div class="card" style="margin-top:14px"><h2>Export</h2><div class="row no-print"><button class="btn primary" id="csv">Download exception CSV</button><button class="btn secondary" id="mapcsv">Download payment-evidence map</button><button class="btn secondary" id="print">Print / Save PDF</button></div><p class="small">The payment-evidence map is useful for the auditor/accountant review because it preserves the source mapping rather than only listing exceptions.</p></div>
+<div class="card" style="margin-top:14px">
+<h2>No action needed</h2>
+<div class="subhead" id="okaySubhead"></div>
+<div id="okay"></div>
 </div>
 
-<div class="footer"><b>Regulatory basis:</b> California Department of Insurance explains that final Workers’ Comp premium is determined after payroll records are audited; insurers generally have audit rights during the policy period and for three years after. WCIRB Rule 4 requires insurers to audit employer records and states that audit reports show the payroll source(s). This tool is an evidence-preparation layer only. Sources: <a href="https://www.insurance.ca.gov/01-consumers/105-type/95-guides/09-comm/WorkersCompensation.cfm" target="_blank" rel="noopener">California Department of Insurance</a> · <a href="https://www.wcirb.com/products-and-services/classification-search/usrp-part-3-section-vi-rule-4-audit-payroll" target="_blank" rel="noopener">WCIRB USRP Rule 4</a>.<br><br><b>Privacy:</b> files are parsed locally by browser JavaScript; this page has no server upload function. Do not use it as a substitute for an insurer, auditor, accountant, or attorney.</div>
+<div class="card" style="margin-top:14px">
+<h2>Save your review list</h2>
+<div class="row no-print"><button class="btn primary" id="csv">Download review list</button><button class="btn secondary" id="mapcsv">Download payment-evidence map</button><button class="btn secondary" id="print">Print / Save PDF</button></div>
+</div>
+</div>
+
+<div class="footer"><b>Scope:</b> AuditReady is an evidence-preparation tool for U.S. California Workers’ Comp premium/payroll audit preparation, initially focused on construction contractors using subcontractors. It does not decide legal contractor status, payroll/exposure inclusion, classification, coverage validity or final premium. A “match” is an evidence/date match in the imported records, not a legal or insurance determination.<br><br><b>Privacy:</b> files are parsed locally by browser JavaScript; this page has no server upload function. Do not use it as a substitute for an insurer, auditor, accountant or attorney.</div>
 </div>
 
 <script>
-let payments=[],evidence=[],results=[],vendorRows=[],continuityRows=[],activeFilter='All';
+let payments=[],evidence=[],results=[];
 const $=id=>document.getElementById(id);
 function openPicker(drop,input){drop.addEventListener('click',()=>input.click());drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0]){input.files=e.dataTransfer.files;input.dispatchEvent(new Event('change'))}})}
 openPicker($('paydrop'),$('payfile'));openPicker($('evdrop'),$('evfile'));
-$('payfile').onchange=async()=>{const f=$('payfile').files[0];if(!f)return;payments=parseCSV(await f.text(),f.name);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMapping('paymap',payments[0],'payments')};
-$('evfile').onchange=async()=>{const f=$('evfile').files[0];if(!f)return;evidence=parseCSV(await f.text(),f.name);$('evinfo').textContent='Loaded '+evidence.length+' evidence rows from '+f.name+'.';showMapping('evmap',evidence[0],'evidence')};
+$('payfile').onchange=async()=>{const f=$('payfile').files[0];if(!f)return;payments=parseCSV(await f.text(),f.name);$('payinfo').textContent='Loaded '+payments.length+' payment rows.';showMapping('paymap',payments[0],'payments')};
+$('evfile').onchange=async()=>{const f=$('evfile').files[0];if(!f)return;evidence=parseCSV(await f.text(),f.name);$('evinfo').textContent='Loaded '+evidence.length+' evidence rows.';showMapping('evmap',evidence[0],'evidence')};
 
 function parseCSV(t,sourceFile=''){t=String(t||'').replace(/^\uFEFF/,'');let rows=[],row=[],cell='',q=false;
 for(let i=0;i<t.length;i++){let c=t[i],n=t[i+1];if(c==='"'&&q&&n==='"'){cell+='"';i++;continue}if(c==='"'){q=!q;continue}if(c===','&&!q){row.push(cell);cell='';continue}if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[];continue}cell+=c}
-row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(!rows.length)return[];
-const h=rows[0].map(x=>x.trim().toLowerCase());return rows.slice(1).map((r,ri)=>{const o=Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()]));o._row=ri+2;o._sourceFile=sourceFile;return o})}
+row.push(cell);if(row.some(x=>x.trim()!==''))rows.push(row);if(!rows.length)return[];const h=rows[0].map(x=>x.trim().toLowerCase());return rows.slice(1).map((r,ri)=>{const o=Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()]));o._row=ri+2;o._sourceFile=sourceFile;return o})}
 function detectedColumn(o,keys){if(!o)return'';const ks=Object.keys(o).filter(k=>!k.startsWith('_'));for(const k of keys){const x=ks.find(z=>z===k)||ks.find(z=>z.includes(k));if(x)return x}return''}
-function showMapping(id,row,kind){const el=$(id);if(!row){el.innerHTML='';return}const fields=kind==='payments'?[['Vendor',['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']],['Amount',['amount paid','payment amount','paid amount','amount','total']],['Payment date',['payment date','date paid','paid date','check date','payment_date','date']]]:[['Vendor',['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']],['Evidence type',['evidence type','document type','record type','evidence']],['Policy type',['policy type','coverage type','line of business','lob','policy']],['Effective',['effective date','start date','from','effective']],['Expiration',['expiration date','end date','to','expiration','expires']],['Policy number',['policy number','policy no','policy #']],['Source',['source','file','document','evidence source']]];el.innerHTML='<b>Detected columns:</b> '+fields.map(([label,keys])=>label+' = <span class="'+(detectedColumn(row,keys)?'ok':'bad')+'">'+esc(detectedColumn(row,keys)||'not found')+'</span>').join(' · ')+'<br><span class="muted">CSV source rows are retained for traceability.</span>'}
+function showMapping(id,row,kind){const el=$(id);if(!row){el.innerHTML='';return}const fields=kind==='payments'?[['Vendor',['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']],['Amount',['amount paid','payment amount','paid amount','amount','total']],['Payment date',['payment date','date paid','paid date','check date','payment_date','date']]]:[['Vendor',['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']],['Evidence type',['evidence type','document type','record type','evidence']],['Policy type',['policy type','coverage type','line of business','lob','policy']],['Effective',['effective date','start date','from','effective']],['Expiration',['expiration date','end date','to','expiration','expires']]];el.innerHTML='<b>Ready:</b> '+fields.map(([label,keys])=>label+' = <span style="color:'+(detectedColumn(row,keys)?'#147a3d':'#b42318')+'">'+(detectedColumn(row,keys)||'not found')+'</span>').join(' · ')}
 function pick(o,keys){const ks=Object.keys(o);for(const k of keys){const x=ks.find(z=>z===k)||ks.find(z=>z.includes(k));if(x&&o[x]!==undefined&&String(o[x]).trim()!=='')return String(o[x]).trim()}return''}
-function date(x){x=String(x||'').trim();if(!x)return null;
-let m=x.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})$/);if(m){const d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));return d.getUTCFullYear()===+m[1]&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[3]?d:null}
-m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);if(m){let y=+m[3];if(y<100)y+=2000;const d=new Date(Date.UTC(y,+m[1]-1,+m[2]));return d.getUTCFullYear()===y&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[1]?d:null}
-const d=new Date(x);return isNaN(d)?null:d}
+function date(x){x=String(x||'').trim();if(!x)return null;let m=x.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})$/);if(m){const d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));return d.getUTCFullYear()===+m[1]&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[3]?d:null}m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);if(m){let y=+m[3];if(y<100)y+=2000;const d=new Date(Date.UTC(y,+m[1]-1,+m[2]));return d.getUTCFullYear()===y&&d.getUTCMonth()===+m[2]-1&&d.getUTCDate()===+m[1]?d:null}const d=new Date(x);return isNaN(d)?null:d}
 function money(x){const s=String(x||'').replace(/[$,\s]/g,'').replace(/\((.*?)\)/,'-$1');const n=Number(s);return Number.isFinite(n)?n:0}
 function norm(x){return String(x||'').toLocaleLowerCase().replace(/&/g,'and').replace(/[^\p{L}\p{N}]/gu,'')}
-function typeOf(c){
-const pt=pick(c,['policy type','coverage type','line of business','lob','policy']);
-const et=pick(c,['evidence type','document type','record type','evidence']);
-const all=(pt+' '+et).toLowerCase();
-if(/workers?\s*(comp|compensation)|wc\b/.test(pt.toLowerCase()))return'Workers Comp';
-if(/self.?insurance/.test(all)&&!/(general liability|auto|umbrella)/.test(pt.toLowerCase()))return'Self-Insurance';
-if(/exemption/.test(all))return'Exemption';
-if(!pt&&/workers?\s*(comp|compensation)|self.?insurance|exemption|certificate/.test(et.toLowerCase()))return'Unknown/Review';
-return'Other/Non-WC'}
+function typeOf(c){const pt=pick(c,['policy type','coverage type','line of business','lob','policy']),et=pick(c,['evidence type','document type','record type','evidence']),all=(pt+' '+et).toLowerCase();if(/workers?\s*(comp|compensation)|wc\b/.test(pt.toLowerCase()))return'Workers Comp';if(/self.?insurance/.test(all)&&!/(general liability|auto|umbrella)/.test(pt.toLowerCase()))return'Self-Insurance';if(/exemption/.test(all))return'Exemption';if(!pt&&/workers?\s*(comp|compensation)|self.?insurance|exemption|certificate/.test(et.toLowerCase()))return'Unknown/Review';return'Other/Non-WC'}
 function evMeta(c){return{type:typeOf(c),a:date(pick(c,['effective date','start date','from','effective'])),b:date(pick(c,['expiration date','end date','to','expiration','expires'])),policy:pick(c,['policy number','policy no','policy #']),source:pick(c,['source','file','document','evidence source'])||c._sourceFile||'',row:c._row||''}}
 function relevant(c){const t=typeOf(c);return t==='Workers Comp'||t==='Self-Insurance'||t==='Exemption'||t==='Unknown/Review'}
 function fmtDate(d){return d?d.toISOString().slice(0,10):''}
 function daysBetween(a,b){return a&&b?Math.round((b-a)/86400000):null}
-function nameSimilarity(a,b){
-  a=norm(a);b=norm(b);if(!a||!b)return 0;
-  if(a===b)return 1;
-  const big=a.length>b.length?a:b,small=a.length>b.length?b:a;
-  if(big.includes(small))return small.length/big.length;
-  let prev=Array(b.length+1).fill(0),cur=Array(b.length+1).fill(0);
-  for(let j=0;j<=b.length;j++)prev[j]=j;
-  for(let i=1;i<=a.length;i++){cur[0]=i;for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));[prev,cur]=[cur,prev]}
-  return 1-prev[b.length]/Math.max(a.length,b.length);
-}
-function bestVendorEvidence(name){
-  const exact=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name));
-  if(exact.length)return {exact:true,rows:exact};
-  let best=[],score=0;
-  for(const c of evidence){
-    const en=pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']);
-    const s=nameSimilarity(name,en);
-    if(s>score){score=s;best=[c]}else if(s===score&&s>0){best.push(c)}
-  }
-  return score>=0.72?{exact:false,rows:best,score}:{exact:false,rows:[]};
-}
+function nameSimilarity(a,b){a=norm(a);b=norm(b);if(!a||!b)return 0;if(a===b)return 1;const big=a.length>b.length?a:b,small=a.length>b.length?b:a;if(big.includes(small))return small.length/big.length;let prev=Array(b.length+1).fill(0),cur=Array(b.length+1).fill(0);for(let j=0;j<=b.length;j++)prev[j]=j;for(let i=1;i<=a.length;i++){cur[0]=i;for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));[prev,cur]=[cur,prev]}return 1-prev[b.length]/Math.max(a.length,b.length)}
+function bestVendorEvidence(name){const exact=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name));if(exact.length)return{exact:true,rows:exact};let best=[],score=0;for(const c of evidence){const en=pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']),s=nameSimilarity(name,en);if(s>score){score=s;best=[c]}else if(s===score&&s>0)best.push(c)}return score>=0.72?{exact:false,rows:best,score}:{exact:false,rows:[]}}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function analyze(){
-if(!payments.length||!evidence.length){$('msg').textContent='Load both CSV files first, or use the stress-test sample.';return}
-$('msg').textContent='Analyzing payment → subcontractor → evidence → date coverage locally…';
-const as=date($('auditStart').value),ae=date($('auditEnd').value);
-results=payments.map((p,i)=>{
-const name=pick(p,['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']);
-const pd=date(pick(p,['payment date','date paid','paid date','check date','payment_date','date']));
-const amt=money(pick(p,['amount paid','payment amount','paid amount','amount','total']));
-const outside=!!(as&&ae&&pd&&(pd<as||pd>ae));
-const vendorMatch=bestVendorEvidence(name);const matches=vendorMatch.rows;const rel=matches.filter(relevant);
-const possibleNameMismatch=!vendorMatch.exact&&matches.length>0;
-const covered=rel.filter(c=>{const m=evMeta(c);return pd&&m.a&&m.b&&m.a<=pd&&pd<=m.b});
-const wcCovered=covered.filter(c=>evMeta(c).type==='Workers Comp'||evMeta(c).type==='Self-Insurance');
-const unknownCovered=covered.filter(c=>evMeta(c).type==='Unknown/Review');
-const relevantWithMissingDates=rel.filter(c=>{const m=evMeta(c);return !m.a||!m.b});
-const datedRel=rel.map(c=>({raw:c,meta:evMeta(c)})).filter(x=>x.meta.a&&x.meta.b);
-const nearestBefore=datedRel.filter(x=>x.meta.b<pd).sort((a,b)=>b.meta.b-a.meta.b)[0];
-const nearestAfter=datedRel.filter(x=>x.meta.a>pd).sort((a,b)=>a.meta.a-b.meta.a)[0];
-const dateGapDays=nearestBefore&&nearestAfter?daysBetween(nearestBefore.meta.b,nearestAfter.meta.a):null;
-const missingPolicy=rel.filter(c=>!evMeta(c).policy);
-let status='';let action='';let reason='';
-if(!name){status='Missing subcontractor';reason='Payment has no vendor/subcontractor name.';action='Fix the source payment row.'}
-else if(!pd){status='Invalid payment date';reason='Payment date is missing or invalid.';action='Fix the source payment row.'}
-else if(amt<=0){status='Review amount';reason='Payment amount is zero or negative.';action='Confirm this is a real subcontractor payment before relying on the row.'}
-else if(outside){status='Outside audit period';reason='Payment falls outside the stated audit window.';action='Confirm whether this payment belongs in the audit population.'}
-else if(wcCovered.length&&possibleNameMismatch){status='Possible vendor name mismatch';reason='A similar vendor name has date-covered Workers’ Comp evidence, but the names are not an exact match.';action='Confirm the vendor identity manually before treating the evidence as supporting this payment.'}
-else if(wcCovered.length&&wcCovered.every(c=>!evMeta(c).policy)){status='Matched — missing policy number';reason='Workers’ Comp/self-insurance evidence covers the payment date, but the matched record has no policy number in the imported data.';action='Verify the source certificate/policy record and capture the policy number if available.'}
-else if(wcCovered.length){status='Matched';reason='Workers’ Comp/self-insurance evidence covers the payment date.';action='No exception; retain the evidence reference.'}
-else if(unknownCovered.length){status='Matched — review evidence type';reason='A potentially relevant record covers the date, but its policy type is ambiguous.';action='Human-review the source document/type before relying on it.'}
-else if(relevantWithMissingDates.length){status='Missing evidence date';reason='A potentially relevant evidence record exists, but its effective or expiration date is missing/invalid, so date coverage cannot be verified.';action='Open the source record and add/verify both effective and expiration dates.'}
-else if(rel.length){status='Date/evidence gap';reason=dateGapDays!==null?'No evidence record covers the payment date; the nearest dated records leave a '+dateGapDays+'-day gap between '+fmtDate(nearestBefore.meta.b)+' and '+fmtDate(nearestAfter.meta.a)+'.':'Potentially relevant evidence exists, but no record covers the payment date.';action='Check the renewal/expiration dates and locate the missing-period evidence.'}
-else if(matches.length){status='Non-WC evidence only';reason='Records exist for this vendor, but they do not identify Workers’ Comp/self-insurance evidence.';action='Locate applicable Workers’ Comp evidence; do not treat another certificate as WC proof.'}
-else{status='No Workers’ Comp evidence';reason='No matching evidence record was found for this vendor.';action='Locate the applicable Workers’ Comp/self-insurance record and review the payment.'}
-const shown=(wcCovered.length?wcCovered:unknownCovered).map(c=>{const m=evMeta(c);return{...m,label:m.type+' · '+fmtDate(m.a)+' – '+fmtDate(m.b)+(m.policy?' · '+m.policy:'')+(m.source?' · '+m.source:'')+(m.row?' · row '+m.row:'')}}).slice(0,3);
-const allRelevant=rel.map(c=>{const m=evMeta(c);return{...m,label:m.type+' · '+fmtDate(m.a)+' – '+fmtDate(m.b)+(m.policy?' · '+m.policy:'')+(m.source?' · '+m.source:'')+(m.row?' · row '+m.row:'')}}).slice(0,5);
-const evidenceChain=allRelevant.length?allRelevant.map(e=>e.label).join(' | '):'No relevant evidence record found';
-const gapDays=dateGapDays;
-return{row:i,name,pd,amt,status,reason,action,covered:shown,allRelevant,evidenceChain,gapDays,matchCount:matches.length,sourceCount:rel.length}}
-);
-buildSummaries(as,ae);render()}
-function buildSummaries(as,ae){
-const names=[...new Set(results.map(x=>x.name).filter(Boolean))];
-vendorRows=names.map(name=>{const rs=results.filter(x=>norm(x.name)===norm(name));const matched=rs.filter(x=>x.status==='Matched').length;const exceptions=rs.filter(x=>x.status!=='Matched'&&x.status!=='Outside audit period').length;return{name,payments:rs.length,matched,exceptions,amount:rs.reduce((a,x)=>a+x.amt,0)}});
-continuityRows=names.map(name=>{
-const cs=evidence.filter(c=>norm(pick(c,['subcontractor','subcontractor name','vendor','vendor name','company','company name','name']))===norm(name)&&relevant(c)).map(evMeta).filter(m=>m.a&&m.b).sort((a,b)=>a.a-b.a);
-let gaps=[];for(let i=1;i<cs.length;i++){const prev=cs[i-1],cur=cs[i];if(cur.a>prev.b&&cur.a-prev.b>86400000)gaps.push({from:fmtDate(prev.b),to:fmtDate(cur.a)})}
-return{name,records:cs.length,gaps}}
-)}
-function filterResults(){return activeFilter==='All'?results:results.filter(x=>x.status===activeFilter)}
-function renderFilters(){
-const counts={All:results.length};results.forEach(x=>counts[x.status]=(counts[x.status]||0)+1);
-const order=['All','No Workers’ Comp evidence','Date/evidence gap','Missing evidence date','Matched — missing policy number','Non-WC evidence only','Matched — review evidence type','Possible vendor name mismatch','Invalid payment date','Missing subcontractor','Review amount','Outside audit period'];
-$('filters').innerHTML=order.filter(k=>counts[k]!==undefined).map(k=>'<button class="btn '+(activeFilter===k?'primary':'secondary')+'" data-filter="'+esc(k)+'">'+esc(k)+' <span class="tag">'+counts[k]+'</span></button>').join('');
-$('filters').querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{activeFilter=b.dataset.filter;render()});
-}
-function render(){renderFilters();
-$('results').classList.remove('hide');
-const matched=results.filter(x=>x.status==='Matched'), evidenceMatched=results.filter(x=>x.covered.length>0), exceptions=results.filter(x=>!['Matched','Outside audit period'].includes(x.status)),outside=results.filter(x=>x.status==='Outside audit period');
-$('s1').textContent=results.length;$('s2').textContent=evidenceMatched.length;$('s3').textContent=exceptions.length;$('s4').textContent='$'+exceptions.reduce((a,x)=>a+x.amt,0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-$('s5').textContent=new Set(exceptions.map(x=>norm(x.name)).filter(Boolean)).size;
-const pct=results.length?Math.round(evidenceMatched.length/results.length*100):0;
-$('quality').innerHTML='<div class="'+(exceptions.length?'note':'success')+'"><b>'+pct+'% of payments have a direct evidence match.</b> '+exceptions.length+' payment(s) need review'+(outside.length?' · '+outside.length+' outside the stated audit period':'')+'. This is a review queue, not a compliance verdict.</div>';
-$('vendorSummary').innerHTML=vendorRows.map(v=>'<div style="margin-bottom:11px"><div><b>'+esc(v.name)+'</b> <span class="tag">'+v.matched+'/'+v.payments+' matched</span></div><div class="bar" style="margin:5px 0"><i style="width:'+Math.round(v.matched/v.payments*100)+'%"></i></div><div class="muted">'+v.exceptions+' review item(s) · $'+v.amount.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' total payments</div></div>').join('')||'—';
-$('continuity').innerHTML=continuityRows.map(v=>'<div style="margin-bottom:10px"><b>'+esc(v.name)+'</b> · '+v.records+' dated evidence record(s)'+(v.gaps.length?' · <span class="bad">'+v.gaps.length+' gap(s)</span>':' · <span class="ok">no date gap detected</span>')+(v.gaps.length?'<div class="muted">Gap: '+v.gaps.map(g=>esc(g.from)+' → '+esc(g.to)).join('; ')+'</div>':'')+'</div>').join('')||'—';
-const visible=filterResults();$('tbody').innerHTML=visible.map(x=>{const ev=x.covered.map(e=>esc(e.label)).join('<br>')||'—';const cls=x.status==='Matched'?'ok':(x.status.includes('review')||x.status.includes('missing policy'))?'warn':'bad';return '<tr><td>'+esc(x.name)+'</td><td>'+esc(fmtDate(x.pd)||'Unknown')+'</td><td>$'+x.amt.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td class="'+cls+'"><b>'+esc(x.status)+'</b></td><td>'+ev+'</td><td>'+esc(x.covered.length?x.covered[0].label:(x.allRelevant&&x.allRelevant.length?x.allRelevant[0].label:'No covered evidence'))+'</td><td><details><summary><b>'+esc(x.reason)+'</b></summary><div class="muted" style="margin-top:6px"><b>Evidence chain:</b> Payment '+esc(fmtDate(x.pd)||'Unknown')+' → '+esc(x.evidenceChain)+' → result: '+esc(x.status)+(x.gapDays!==null&&x.gapDays!==undefined?' → gap '+x.gapDays+' day(s)':'')+'<br><b>Next action:</b> '+esc(x.action)+'</div></details></td></tr>'}).join('')}
-$('sample').onclick=()=>{
-payments=parseCSV('subcontractor,amount paid,payment date\nABC Roofing LLC,12500,2026-06-15\nBright HVAC Inc,8400,2026-06-20\nBright HVAC Inc,4200,2026-06-05\nDelta Electric,6300,2026-07-02\nNorthstar Concrete,9800,2026-08-12\nGeneral Vendor LLC,5100,2026-07-10\n','stress-test-payments.csv');
-evidence=parseCSV('subcontractor,policy type,evidence type,effective date,expiration date,policy number,source\nABC Roofing LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-12-31,WC-ABC-001,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2025-01-01,2026-05-31,WC-BHV-002,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2026-06-15,2027-05-31,WC-BHV-003,renewal.csv\nDelta Electric,,Certification of Self-Insurance,2026-01-01,2026-12-31,SI-DELTA-003,self-insurance.csv\nNorthstar Concrete,General Liability,Certificate of Insurance,2026-01-01,2026-12-31,GL-NC-004,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-06-30,WC-GV-005,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-07-15,2026-12-31,WC-GV-006,renewal.csv\n','stress-test-evidence.csv');
-$('auditStart').value='2026-01-01';$('auditEnd').value='2026-12-31';$('payinfo').textContent='Loaded stress-test payments (6 rows).';$('evinfo').textContent='Loaded stress-test evidence (7 rows).';$('msg').textContent='Stress-test data loaded. It includes renewal gaps, self-insurance, non-WC certificates and name/date edge cases.'};
+function analyze(){if(!payments.length||!evidence.length){$('msg').textContent='Load both CSV files first, or try the sample.';return}$('msg').textContent='Checking your records locally…';const as=date($('auditStart').value),ae=date($('auditEnd').value);
+results=payments.map((p,i)=>{const name=pick(p,['subcontractor','subcontractor name','vendor','vendor name','company','company name','payee']),pd=date(pick(p,['payment date','date paid','paid date','check date','payment_date','date'])),amt=money(pick(p,['amount paid','payment amount','paid amount','amount','total'])),outside=!!(as&&ae&&pd&&(pd<as||pd>ae)),vm=bestVendorEvidence(name),matches=vm.rows,rel=matches.filter(relevant),possible=!vm.exact&&matches.length,covered=rel.filter(c=>{const m=evMeta(c);return pd&&m.a&&m.b&&m.a<=pd&&pd<=m.b}),wc=covered.filter(c=>['Workers Comp','Self-Insurance'].includes(evMeta(c).type)),unknown=covered.filter(c=>evMeta(c).type==='Unknown/Review'),missingDates=rel.filter(c=>{const m=evMeta(c);return!m.a||!m.b}),dated=rel.map(c=>({raw:c,m:evMeta(c)})).filter(x=>x.m.a&&x.m.b),before=dated.filter(x=>x.m.b<pd).sort((a,b)=>b.m.b-a.m.b)[0],after=dated.filter(x=>x.m.a>pd).sort((a,b)=>a.m.a-b.m.a)[0],gap=before&&after?daysBetween(before.m.b,after.m.a):null;
+let status,problem,next;
+if(!name){status='Missing subcontractor';problem='The payment has no vendor name.';next='Fix the payment record.'}
+else if(!pd){status='Invalid payment date';problem='The payment date is missing or invalid.';next='Fix the payment record.'}
+else if(amt<=0){status='Review amount';problem='The payment amount is zero or negative.';next='Confirm this is a real subcontractor payment.'}
+else if(outside){status='Outside audit period';problem='The payment is outside the audit dates you entered.';next='Confirm whether it belongs in this audit.'}
+else if(wc.length&&possible){status='Possible vendor name mismatch';problem='A similar vendor name has date-covered Workers’ Comp evidence, but the names differ.';next='Confirm the vendor identity before relying on the evidence.'}
+else if(wc.length&&wc.every(c=>!evMeta(c).policy)){status='Matched — policy number missing';problem='Coverage appears to cover the payment date, but no policy number was imported.';next='Check the source certificate/policy record for the policy number.'}
+else if(wc.length){status='Matched';problem='Workers’ Comp/self-insurance evidence covers the payment date.';next='No action needed.'}
+else if(unknown.length){status='Evidence needs review';problem='A potentially relevant record covers the date, but its type is ambiguous.';next='Open the source document and confirm what type of evidence it is.'}
+else if(missingDates.length){status='Evidence date missing';problem='A potentially relevant record exists, but its effective or expiration date cannot be verified.';next='Find the missing dates in the source record.'}
+else if(rel.length){status='Coverage gap';problem=gap!==null?'No evidence covers the payment date; the nearest records leave a '+gap+'-day gap.':'Evidence exists, but none covers the payment date.';next='Find the missing-period Workers’ Comp evidence.'}
+else if(matches.length){status='Wrong evidence type';problem='Records exist for this vendor, but they do not identify Workers’ Comp/self-insurance evidence.';next='Find the applicable Workers’ Comp evidence.'}
+else{status='Evidence missing';problem='No matching Workers’ Comp evidence was found for this vendor.';next='Find the vendor’s Workers’ Comp/self-insurance record.'}
+const chain=(rel.length?rel.map(c=>{const m=evMeta(c);return m.type+' · '+fmtDate(m.a)+' – '+fmtDate(m.b)+(m.policy?' · '+m.policy:'')+(m.source?' · '+m.source:'')+(m.row?' · row '+m.row:'')}).slice(0,5).join(' | '):'No relevant evidence record found');
+const coveredText=covered.slice(0,3).map(c=>{const m=evMeta(c);return m.type+' · '+fmtDate(m.a)+' – '+fmtDate(m.b)+(m.policy?' · '+m.policy:'')}).join(' | ');
+return{row:i,name,pd,amt,status,problem,next,chain,coveredText,gap,matched:status==='Matched',outside}});}
+$('results').classList.remove('hide');renderResults()}
+function renderResults(){const attention=results.filter(x=>!x.matched&&!x.outside),okay=results.filter(x=>x.matched),outside=results.filter(x=>x.outside);$('attentionCount').textContent=attention.length;$('headline').innerHTML=attention.length?'<div class="warning"><b>'+attention.length+' payment(s) need attention.</b> Start with the list below. It tells you exactly what to check or find next.'+(outside.length?' <span class="muted">'+outside.length+' payment(s) are outside the audit period.</span>':'')+'</div>':'<div class="success"><b>Nothing needs attention in the imported records.</b> The payment dates have matching Workers’ Comp/self-insurance evidence.</div>';
+$('attention').innerHTML=attention.length?'<div class="actiongrid"><div class="head">Vendor</div><div class="head">Payment</div><div class="head">Problem</div><div class="head">What to do next</div>'+attention.map(x=>'<div data-label="Vendor"><b>'+esc(x.name)+'</b></div><div data-label="Payment">$'+x.amt.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'<br><span class="muted">'+esc(fmtDate(x.pd)||'Unknown date')+'</span></div><div data-label="Problem" class="problem">'+esc(x.problem)+'<div><span class="tag">'+esc(x.status)+'</span></div></div><div data-label="What to do next" class="next"><b>'+esc(x.next)+'</b><div class="details"><details><summary>Why was this flagged?</summary><div class="muted" style="margin-top:6px"><b>Evidence found:</b> '+esc(x.coveredText||'None covering the payment date')+'<br><b>Evidence trail:</b> Payment '+esc(fmtDate(x.pd)||'Unknown')+' → '+esc(x.chain)+'</div></details></div></div>').join('')+'</div>':'<div class="success">No review items.</div>';
+$('okaySubhead').textContent=okay.length+' payment(s) have evidence covering their payment date.'+(outside.length?' '+outside.length+' payment(s) were outside the audit period and are not counted here.':'');
+$('okay').innerHTML=okay.length?'<div>'+okay.map(x=>'<div style="padding:9px 0;border-bottom:1px solid #edf0f4"><b>'+esc(x.name)+'</b> · $'+x.amt.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' · '+esc(fmtDate(x.pd))+' <span class="tag">Matched</span></div>').join('')+'</div>':'<div class="muted">No matched payments yet.</div>'}
+$('sample').onclick=()=>{payments=parseCSV('subcontractor,amount paid,payment date\nABC Roofing LLC,12500,2026-06-15\nBright HVAC Inc,8400,2026-06-20\nBright HVAC Inc,4200,2026-06-05\nDelta Electric,6300,2026-07-02\nNorthstar Concrete,9800,2026-08-12\nGeneral Vendor LLC,5100,2026-07-10\n','stress-test-payments.csv');evidence=parseCSV('subcontractor,policy type,evidence type,effective date,expiration date,policy number,source\nABC Roofing LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-12-31,WC-ABC-001,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2025-01-01,2026-05-31,WC-BHV-002,certificate.csv\nBright HVAC Inc,Workers Comp,Certificate of Insurance,2026-06-15,2027-05-31,WC-BHV-003,renewal.csv\nDelta Electric,,Certification of Self-Insurance,2026-01-01,2026-12-31,SI-DELTA-003,self-insurance.csv\nNorthstar Concrete,General Liability,Certificate of Insurance,2026-01-01,2026-12-31,GL-NC-004,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-01-01,2026-06-30,WC-GV-005,certificate.csv\nGeneral Vendor LLC,Workers Comp,Certificate of Insurance,2026-07-15,2026-12-31,WC-GV-006,renewal.csv\n','stress-test-evidence.csv');$('auditStart').value='2026-01-01';$('auditEnd').value='2026-12-31';$('payinfo').textContent='Loaded sample: 6 payment rows.';$('evinfo').textContent='Loaded sample: 7 evidence rows.';$('msg').textContent='Sample loaded. Press “Find Problems”.'};
 $('run').onclick=analyze;
-$('clear').onclick=()=>{payments=[];evidence=[];results=[];vendorRows=[];continuityRows=[];activeFilter='All';$('results').classList.add('hide');$('paymap').innerHTML='';$('evmap').innerHTML='';$('payinfo').textContent='No payment file loaded.';$('evinfo').textContent='No evidence file loaded.';$('msg').textContent='Cleared.';$('auditStart').value='';$('auditEnd').value=''};
+$('clear').onclick=()=>{payments=[];evidence=[];results=[];$('results').classList.add('hide');$('paymap').innerHTML='';$('evmap').innerHTML='';$('payinfo').textContent='No payment file loaded.';$('evinfo').textContent='No evidence file loaded.';$('msg').textContent='Cleared.';$('auditStart').value='';$('auditEnd').value=''};
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function csvCell(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
-$('csv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Evidence Found','Coverage / Policy','Gap Days','Reason','Action'];const b=results.filter(x=>x.status!=='Matched').map(x=>[x.name,fmtDate(x.pd),x.amt,x.status,(x.allRelevant||[]).map(e=>e.label).join(' | '),x.covered.length?x.covered[0].label:'',x.gapDays??'',x.reason,x.action]);download('auditready-exceptions.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
-$('mapcsv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Evidence Type','Effective Date','Expiration Date','Policy Number','Evidence Source','Evidence Source Row'];const b=results.flatMap(x=>x.covered.length?x.covered.map(e=>[x.name,fmtDate(x.pd),x.amt,x.status,e.type,fmtDate(e.a),fmtDate(e.b),e.policy,e.source,e.row]):[[x.name,fmtDate(x.pd),x.amt,x.status,'','','','','']]);download('auditready-payment-evidence-map.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
+$('csv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Problem','Evidence Found','Next Action','Evidence Trail'];const b=results.filter(x=>!x.matched).map(x=>[x.name,fmtDate(x.pd),x.amt,x.status,x.problem,x.coveredText,x.next,x.chain]);download('auditready-review-list.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
+$('mapcsv').onclick=()=>{const h=['Subcontractor','Payment Date','Amount','Status','Evidence Found','Evidence Trail'];const b=results.map(x=>[x.name,fmtDate(x.pd),x.amt,x.status,x.coveredText,x.chain]);download('auditready-payment-evidence-map.csv',[h,...b].map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv')};
 $('print').onclick=()=>window.print();
 </script></body></html>
