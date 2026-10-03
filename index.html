@@ -19,8 +19,6 @@ function vendorMatches(name){let exact=evidence.filter(e=>norm(meta(e).vendor)==
 function showMap(id,row,kind){if(!row){$(id).textContent='';return}let f=kind==='pay'?[["Vendor",keys.vendor],["Amount",keys.amount],["Date",keys.pdate]]:[["Vendor",keys.vendor],["Type",keys.etype],["Effective",keys.start],["Expiration",keys.end]];$(id).innerHTML='<b>Detected:</b> '+f.map(a=>a[0]+' = <span style="color:'+(pick(row,a[1])?'#17633a':'#b42318')+'">'+esc(pick(row,a[1])||'not found')+'</span>').join(' · ')}
 $('payfile').onchange=async()=>{let f=$('payfile').files[0];if(!f)return;try{payments=await tableFile(f);$('payinfo').textContent='Loaded '+payments.length+' payment rows from '+f.name+'.';showMap('paymap',payments[0],'pay')}catch(e){$('payinfo').textContent='Could not read the file: '+e.message}};
 const PDF_TASK_TIMEOUT=30000;
-let pdfLibPromise=null;
-async function loadPdfLib(){if(!pdfLibPromise)pdfLibPromise=import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs");return pdfLibPromise}
 async function pdfTextDirect(file){
   const lib=await loadPdfLib();
   const buffer=await file.arrayBuffer();
