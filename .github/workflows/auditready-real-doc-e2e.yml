@@ -1,4 +1,4 @@
-name: AuditReady real-document browser E2E
+name: AuditReady browser regression
 
 on:
   push:
@@ -6,25 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  browser-real-docs:
+  browser-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install Playwright
         run: |
           npm init -y
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
-      - name: Run real public insurance-document E2E
+      - name: Run privacy-safe browser regression
         run: node tests/real-doc-e2e.mjs
-      - name: Upload E2E evidence
+      - name: Upload regression summary only
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: auditready-real-doc-e2e
-          path: test-artifacts/
+          name: auditready-browser-regression
+          path: |
+            test-artifacts/regression-summary.txt
+            test-artifacts/regression-result.png
           if-no-files-found: ignore
