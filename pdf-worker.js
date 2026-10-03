@@ -1,20 +1,31 @@
 let ready=false;
-try{importScripts('./pdf.min.js')}catch(error){try{importScripts('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js')}catch(e){self.__pdfLoadError=String(e&&e.message||e)}} ready=!!self.pdfjsLib
-async function extract(buffer){
- if(!ready)throw Error(self.__pdfLoadError||'PDF.js failed to load');
- const doc=await self.pdfjsLib.getDocument({data:buffer,disableWorker:true,useWasm:false}).promise;
- const parts=[];
- try{
-  for(let i=1;i<=doc.numPages;i++){
-   const page=await doc.getPage(i),tc=await page.getTextContent();
-   const txt=tc.items.map(x=>x.str||'').join(' ').replace(/\s+/g,' ').trim();
-   parts.push(i===1?txt:'\n[Page '+i+'] '+txt);page.cleanup();
-  }
-  return parts.join(' ').replace(/\s+/g,' ').trim();
- }finally{try{await doc.destroy()}catch{}}
+try{importScripts('./pdf.min.js')}catch(error){try{importScripts('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js')}catch(e){self.__pdfLoadError=String(e&&e.message||e)}}
+ready=!!self.pdfjsLib;
+function extract(buffer){
+  if(!ready)return Promise.reject(Error(self.__pdfLoadError||'PDF.js failed to load'));
+  return self.pdfjsLib.getDocument({data:buffer,disableWorker:true,useWasm:false}).promise.then(function(doc){
+    var chain=Promise.resolve(),parts=[];
+    for(let i=1;i<=doc.numPages;i++){
+      chain=chain.then(function(){
+        return doc.getPage(i).then(function(page){
+          return page.getTextContent().then(function(tc){
+            var txt=tc.items.map(function(x){return x.str||''}).join(' ').replace(/\s+/g,' ').trim();
+            parts.push(i===1?txt:'\n[Page '+i+'] '+txt);
+            page.cleanup();
+          });
+        });
+      });
+    }
+    return chain.then(function(){
+      try{doc.destroy()}catch(e){}
+      return parts.join(' ').replace(/\s+/g,' ').trim();
+    },function(err){
+      try{doc.destroy()}catch(e){}
+      throw err;
+    });
+  });
 }
-self.onmessage=async ev=>{
- const {id,buffer}=ev.data||{};
- try{self.postMessage({id,ok:true,text:await extract(buffer)})}
- catch(error){self.postMessage({id,ok:false,error:String(error&&error.message||error)})}
+self.onmessage=function(ev){
+  var data=ev.data||{},id=data.id;
+  extract(data.buffer).then(function(text){self.postMessage({id:id,ok:true,text:text})},function(error){self.postMessage({id:id,ok:false,error:String(error&&error.message||error)})});
 };
