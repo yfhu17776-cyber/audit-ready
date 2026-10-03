@@ -99,12 +99,12 @@ async function pdfText(file){
   return await pdfTextWithOCR(file);
 }
 function firstMatch(text,patterns){for(const p of patterns){const m=text.match(p);if(m&&m[1])return m[1].trim().replace(/\\s{2,}/g,' ')}return''}
-function allDates(text){let a=[];for(const m of text.matchAll(/\\b(20\\d{2})[\\/\\-.](\\d{1,2})[\\/\\-.](\\d{1,2})\\b/g))a.push(m[0]);for(const m of text.matchAll(/\\b(\\d{1,2})[\\/\\-.](\\d{1,2})[\\/\\-.](20\\d{2})\\b/g))a.push(m[0]);return [...new Set(a)]}
+function allDates(text){let a=[];for(const m of text.matchAll(/\\b(20\\d{2})[-/.](\\d{1,2})[-/.](\\d{1,2})\\b/g))a.push(m[0]);for(const m of text.matchAll(/\\b(\\d{1,2})[-/.](\\d{1,2})[-/.](20\\d{2})\\b/g))a.push(m[0]);return [...new Set(a)]}
 function evidenceFromText(text,file,page='document'){let raw=String(text||'').replace(/\\u0000/g,' '),t=raw.replace(/\\s+/g,' ').trim(),lo=t.toLowerCase(),dates=allDates(t);
 let vendor=firstMatch(t,[/(?:named insured|insured(?:'s)?(?: name)?|insured name)\\s*[:#-]\\s*([^|]{2,120}?)(?=\\s+(?:policy|producer|certificate|phone|email|address|city|state|zip)\\b|$)/i,/(?:insured|named insured)\\s+([^|]{2,100}?)(?=\\s+(?:policy|producer|certificate|address)\\b)/i])||file.name.replace(/\\.(pdf|png|jpg|jpeg|webp)$/i,'').replace(/[_-]+/g,' ');
 let pol=firstMatch(t,[/(?:policy(?:\\s*(?:no|number|#))?|policy\\s*id)\\s*[:#-]?\\s*([A-Z0-9][A-Z0-9\\-\\/]{3,})/i,/(?:policy number)\\s+([A-Z0-9][A-Z0-9\\-\\/]{3,})/i]);
-let eff=firstMatch(t,[/(?:effective|inception|policy period|from)\\s*(?:date)?[^\\d]{0,30}((?:20\\d{2}[\\/\\-.]\\d{1,2}[\\/\\-.]\\d{1,2})|(?:\\d{1,2}[\\/\\-.]\\d{1,2}[\\/\\-.]20\\d{2}))/i])||dates[0]||'';
-let exp=firstMatch(t,[/(?:expiration|expires|expiration date|to)\\s*(?:date)?[^\\d]{0,30}((?:20\\d{2}[\\/\\-.]\\d{1,2}[\\/\\-.]\\d{1,2})|(?:\\d{1,2}[\\/\\-.]\\d{1,2}[\\/\\-.]20\\d{2}))/i])||dates[1]||'';
+let eff=firstMatch(t,[/(?:effective|inception|policy period|from)\\s*(?:date)?[^\\d]{0,30}((?:20\\d{2}[-/.]\\d{1,2}[-/.]\\d{1,2})|(?:\\d{1,2}[-/.]\\d{1,2}[-/.]20\\d{2}))/i])||dates[0]||'';
+let exp=firstMatch(t,[/(?:expiration|expires|expiration date|to)\\s*(?:date)?[^\\d]{0,30}((?:20\\d{2}[-/.]\\d{1,2}[-/.]\\d{1,2})|(?:\\d{1,2}[-/.]\\d{1,2}[-/.]20\\d{2}))/i])||dates[1]||'';
 let type=/workers?\\s*(?:comp|compensation)|workers?\\s*comp|\\bwc\\b|statutory workers/i.test(lo)?'Workers Comp':/self[- ]?insurance|self insured/i.test(lo)?'Self-Insurance':/exemption|certificate of exemption/i.test(lo)?'Exemption':'Other';
 let conf=(vendor&&((eff&&exp)||pol)&&type!=='Other')?'High':(vendor||eff||exp||pol||type!=='Other')?'Review':'Low';
 return{subcontractor:vendor,'policy type':type,'evidence type':'Document','effective date':eff,'expiration date':exp,'policy number':pol,_sourceFile:file.name,_page:page,_row:'document',_confidence:conf,_text:t.slice(0,700)}}
