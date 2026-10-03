@@ -32,7 +32,7 @@ try {
  await page.waitForTimeout(3000);
  const early=await page.locator('#evinfo').innerText();
  if(!/Processed|Loaded/.test(early)) throw new Error('Evidence pipeline did not start: '+early+' | '+pageErrors.join(' || '));
- await page.waitForFunction(()=>/Processed 30 \/ 30 evidence files/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:300000});
+ await page.waitForFunction(()=>/Processed 1 \/ 30|Processed 2 \/ 30|Processed 3 \/ 30|Loaded/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:30000}).catch(async e=>{throw new Error('Evidence pipeline stalled after 30s: '+(await page.locator('#evinfo').innerText())+' | '+pageErrors.join(' || '));});
  await page.waitForFunction(()=>/Loaded 30 evidence records from 30 file/.test(document.querySelector('#evinfo')?.textContent||''),null,{timeout:30000});
  await page.locator('#run').click(); await page.locator('#results').waitFor({state:'visible',timeout:90000});
  const summary=Number(await page.locator('#sumPayments').innerText()); const attention=Number(await page.locator('#sumAttention').innerText()); const matched=Number(await page.locator('#sumMatched').innerText()); const low=Number(await page.locator('#sumLow').innerText());
