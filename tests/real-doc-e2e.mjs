@@ -57,7 +57,10 @@ try {
 
     if(count===20){
       await page.locator('#run').click();
-      await page.locator('#results').waitFor({state:'visible',timeout:90000});
+      await page.waitForTimeout(1000);
+      const runState=await page.evaluate(()=>({msg:document.querySelector('#msg')?.textContent||'',results:document.querySelector('#results')?.className||'',payments:window.payments?.length,evidence:window.evidence?.length}));
+      if(pageErrors.length) throw new Error('Run page errors: '+pageErrors.join(' || ')+' | state='+JSON.stringify(runState));
+      await page.locator('#results').waitFor({state:'visible',timeout:15000}).catch(async()=>{throw new Error('Results did not render | state='+JSON.stringify(runState)+' | msg='+await page.locator('#msg').innerText()+' | errors='+pageErrors.join(' || '));});
       const summary=Number(await page.locator('#sumPayments').innerText());
       const attention=Number(await page.locator('#sumAttention').innerText());
       const matched=Number(await page.locator('#sumMatched').innerText());
