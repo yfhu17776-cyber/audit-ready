@@ -26,7 +26,7 @@ function createPdfPool(){
   const queue=[];
   const spawn=(slot)=>{
     if(slot.worker)slot.worker.terminate();
-    const w=new Worker('./pdf-worker.js',{type:'module'});
+    const w=new Worker('./pdf-worker.js');
     slot.worker=w; slot.busy=false; slot.task=null;
     w.onmessage=e=>{
       const d=e.data||{},t=slot.task;
