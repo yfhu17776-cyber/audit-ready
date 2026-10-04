@@ -54,7 +54,7 @@ try {
         '<p><b>Effective Date:</b> 01/01/2026</p>'+
         '<p><b>Expiration Date:</b> 12/31/2026</p></body></html>');
       if(kind==='pdf') await generator.pdf({path:file,format:'Letter'});
-      else await generator.screenshot({path:file,fullPage:true,type:kind});
+      else await generator.screenshot({path:file,fullPage:true,type:(kind==='jpg'?'jpeg':'png')});
     }
     files.push(file);
     manifest.push({index:i+1,vendor,kind,expected:'Matched',amount});
