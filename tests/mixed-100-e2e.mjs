@@ -57,7 +57,7 @@ try {
       else await generator.screenshot({path:file,fullPage:true,type:(kind==='jpg'?'jpeg':'png')});
     }
     files.push(file);
-    manifest.push({index:i+1,vendor,kind,expected:'Matched',amount});
+    manifest.push({index:i+1,vendor,kind,expected:'VERIFIED',amount});
   }
   await generator.close();
 
@@ -90,7 +90,7 @@ try {
 
   const details=await page.evaluate(()=>Array.from(document.querySelectorAll('#okay > div')).map(x=>x.textContent||''));
   for(const m of manifest){
-    const hit=details.some(t=>t.includes(m.vendor)&&t.includes('Matched'));
+    const hit=details.some(t=>t.includes(m.vendor)&&t.includes('VERIFIED'));
     if(!hit) throw new Error('Case '+m.index+' failed individual match: '+m.kind+' '+m.vendor);
   }
 
