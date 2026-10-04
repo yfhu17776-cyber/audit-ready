@@ -1,0 +1,12 @@
+{
+  "name": "audit-ready",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:100": "node tests/mixed-100-e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0",
+    "xlsx": "^0.18.5"
+  }
+}
