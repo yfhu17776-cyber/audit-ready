@@ -114,3 +114,6 @@ The product is considered commercially ready only when a customer can:
 6. Keep uncertain cases in **MANUAL REVIEW** rather than pretending to make a legal coverage determination.
 
 InsureRecon is deliberately not a carrier-verification service, legal compliance opinion, classification engine, or final premium calculator. Its job is narrower: reduce the manual work of reconstructing the payment → vendor → insurance evidence → date → exception trail before an audit.
+
+
+Accuracy rule: uncertain document dates are never treated as confirmed evidence.
