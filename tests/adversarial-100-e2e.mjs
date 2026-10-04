@@ -18,14 +18,14 @@ page.on('console',m=>{if(m.type()==='error')errors.push('console:'+m.text())});
 
 const cases=[];
 const kinds=['csv','xlsx','pdf','png','jpg'];
-const statuses=['Matched','Evidence missing','Wrong evidence type','Coverage gap','Outside audit period'];
+const statuses=['VERIFIED','Evidence missing','Wrong evidence type','Coverage gap','Outside audit period'];
 for(let i=1;i<=100;i++){
   const kind=kinds[Math.floor((i-1)/20)], bucket=(i-1)%20;
-  let expected='Matched', vendor='Adversarial Contractor '+String(i).padStart(3,'0')+' LLC';
-  if(bucket>=12 && bucket<15) expected='Evidence missing';
-  else if(bucket>=15 && bucket<17) expected='Wrong evidence type';
-  else if(bucket>=17 && bucket<19) expected='Coverage gap';
-  else if(bucket===19) expected='Outside audit period';
+  let expected='VERIFIED', vendor='Adversarial Contractor '+String(i).padStart(3,'0')+' LLC';
+  if(bucket>=12 && bucket<15) expected='EXCEPTION:Evidence missing';
+  else if(bucket>=15 && bucket<17) expected='EXCEPTION:Wrong evidence type';
+  else if(bucket>=17 && bucket<19) expected='EXCEPTION:Coverage gap';
+  else if(bucket===19) expected='EXCEPTION:Outside audit period';
   cases.push({id:i,kind,vendor,expected,amount:5000+i*13,paymentDate:bucket===19?'2025-12-31':'2026-06-15'});
 }
 try{
@@ -36,9 +36,9 @@ try{
   for(const c of cases){
     const policy='WC-ADV-'+String(c.id).padStart(4,'0');
     const file=path.join(dir,c.kind+'-'+String(c.id).padStart(3,'0')+'.'+(c.kind==='xlsx'?'xlsx':c.kind));
-    const evidenceVendor=c.expected==='Evidence missing'?'Completely Different Vendor '+c.id:c.vendor;
-    const type=c.expected==='Wrong evidence type'?'General Liability':'Workers Comp';
-    const start='2026-01-01', end=c.expected==='Coverage gap'?'2026-06-01':'2026-12-31';
+    const evidenceVendor=c.expected.startsWith('EXCEPTION:Evidence missing')?'Completely Different Vendor '+c.id:c.vendor;
+    const type=c.expected.startsWith('EXCEPTION:Wrong evidence type')?'General Liability':'Workers Comp';
+    const start='2026-01-01', end=c.expected.startsWith('EXCEPTION:Coverage gap')?'2026-06-01':'2026-12-31';
     if(c.kind==='csv'){
       const rows=[['subcontractor','policy type','evidence type','effective date','expiration date','policy number','source'],[evidenceVendor,type,'Certificate',start,end,policy,'adversarial-'+c.id+'.csv']];
       await fs.writeFile(file,rows.map(r=>r.join(',')).join('\n'));
@@ -76,12 +76,14 @@ try{
   for(const c of cases){
     const hitMatched=matched.some(t=>t.includes(c.vendor));
     const hit=actual.find(x=>x.vendor.includes(c.vendor));
-    const got=hitMatched?'Matched':hit?.status?.split('Evidence confidence')[0].trim()||'Not found';
-    if(!(got==='Matched' ? c.expected==='Matched' : got.includes(c.expected))) failures.push({id:c.id,vendor:c.vendor,expected:c.expected,got});
+    const got=hitMatched?'VERIFIED':hit?.status?.split('Evidence confidence')[0].trim()||'Not found';
+    const expectedParts=c.expected.split(':');
+    const ok=expectedParts[0]==='VERIFIED' ? got==='VERIFIED' : (got.includes('EXCEPTION') && hit?.status?.includes(expectedParts[1]));
+    if(!ok) failures.push({id:c.id,vendor:c.vendor,expected:c.expected,got});
   }
   const summary=await page.evaluate(()=>({payments:+document.querySelector('#sumPayments').textContent,attention:+document.querySelector('#sumAttention').textContent,matched:+document.querySelector('#sumMatched').textContent,low:+document.querySelector('#sumLow').textContent}));
   if(failures.length) throw new Error('Adversarial mismatches: '+JSON.stringify(failures));
-  await fs.writeFile(path.join(dir,'adversarial-100-report.txt'),['adversarial_test_count=100','format_distribution='+JSON.stringify(kinds.reduce((o,k)=>{o[k]=20;return o},{})),'expected_status_distribution='+JSON.stringify(statuses.reduce((o,s)=>{o[s]=cases.filter(c=>c.expected===s).length;return o},{})),'payments='+summary.payments,'attention='+summary.attention,'matched='+summary.matched,'low_confidence='+summary.low,'case_accuracy=100%','false_positive=0','false_negative=0','status=passed'].join('\n')+'\n');
+  await fs.writeFile(path.join(dir,'adversarial-100-report.txt'),['adversarial_test_count=100','format_distribution='+JSON.stringify(kinds.reduce((o,k)=>{o[k]=20;return o},{})),'expected_status_distribution='+JSON.stringify(statuses.reduce((o,s)=>{o[s]=cases.filter(c=>c.expected===s || c.expected.startsWith(s+':')).length;return o},{})),'payments='+summary.payments,'attention='+summary.attention,'matched='+summary.matched,'low_confidence='+summary.low,'case_accuracy=100%','false_positive=0','false_negative=0','status=passed'].join('\n')+'\n');
   await fs.writeFile(path.join(dir,'adversarial-100-manifest.json'),JSON.stringify(cases,null,2));
   await page.screenshot({path:path.join(dir,'adversarial-100-result.png'),fullPage:true});
   console.log('adversarial-100 passed');
