@@ -14,4 +14,62 @@ window.auditReadyReport=function(){const as=ds(dt($('auditStart').value)),ae=ds(
 window.auditReadyDownloadReport=function(){if(!results.length){$('msg').textContent='Run the audit before downloading the report.';return}const blob=new Blob([window.auditReadyReport()],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='insurerecon-audit-review-report.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('run').onclick=window.auditReadyAnalyze;$('report').onclick=window.auditReadyDownloadReport;
 $('sample').onclick=()=>{payments=parseCSV('subcontractor,amount paid,payment date\nABC Roofing LLC,12500,2026-06-15\nBright HVAC Inc,8400,2026-06-20\nBright HVAC Inc,4200,2026-06-05\nDelta Electric,6300,2026-07-02\nNorthstar Concrete,9800,2026-08-12\nGeneral Vendor LLC,5100,2026-07-10','sample-payments.csv');evidence=parseCSV('subcontractor,policy type,evidence type,effective date,expiration date,policy number,source\nABC Roofing LLC,Workers Comp,Certificate,2026-01-01,2026-12-31,WC-ABC-001,ABC COI\nBright HVAC Inc,Workers Comp,Certificate,2025-01-01,2026-05-31,WC-BHV-002,Bright old COI\nBright HVAC Inc,Workers Comp,Certificate,2026-06-15,2027-05-31,WC-BHV-003,Bright renewal\nDelta Electric,Self-Insurance,Certification,2026-01-01,2026-12-31,SI-DELTA-003,Delta evidence\nNorthstar Concrete,General Liability,Certificate,2026-01-01,2026-12-31,GL-NC-004,Northstar COI\nGeneral Vendor LLC,Workers Comp,Certificate,2026-01-01,2026-06-30,WC-GV-005,old COI\nGeneral Vendor LLC,Workers Comp,Certificate,2026-07-15,2026-12-31,WC-GV-006,new COI','sample-evidence.csv');$('auditStart').value='2026-01-01';$('auditEnd').value='2026-12-31';$('payinfo').textContent='Sample loaded: 6 payments.';$('evinfo').textContent='Sample loaded: 7 evidence records.';$('msg').textContent='Sample loaded. Running the audit check…';window.auditReadyAnalyze()};
+
+/* Commercial audit-packet layer: keeps the product focused on the records a premium-audit prep workflow actually needs. */
+(function(){
+  function packetConfig(){
+    const rows = Array.isArray(payments)?payments:[];
+    const ev = Array.isArray(evidence)?evidence:[];
+    const paymentSources=[...new Set(rows.map(x=>x._sourceFile).filter(Boolean))];
+    const evidenceSources=[...new Set(ev.map(x=>x._sourceFile||meta(x).source).filter(Boolean))];
+    const hasPayments=rows.length>0;
+    const hasEvidence=ev.length>0;
+    const vendorNames=[...new Set(rows.map(x=>pick(x,keys.vendor)).filter(Boolean))];
+    const hasDates=rows.some(x=>dt(pick(x,keys.pdate)));
+    const hasAmounts=rows.some(x=>money(pick(x,keys.amount))>0);
+    const exceptionCount=(Array.isArray(results)?results:[]).filter(x=>x.status==='EXCEPTION').length;
+    const manualCount=(Array.isArray(results)?results:[]).filter(x=>x.status==='MANUAL REVIEW').length;
+    return [
+      {id:'payments',name:'Payment / AP records',status:hasPayments&&hasAmounts?'READY':'MISSING',detail:hasPayments?(rows.length+' payment record(s) loaded'+(paymentSources.length?' from '+paymentSources.length+' source file(s)':'')+'.'):'Load the payment/AP export used for the audit period.',next:hasPayments?'Keep the original AP/payment export with the audit packet.':'Export the contractor/subcontractor payment or AP ledger.'},
+      {id:'dates',name:'Payment dates',status:hasDates?'READY':'REVIEW',detail:hasDates?'Payment dates are available for evidence-date reconciliation.':'Some or all payment dates are missing or unreadable.',next:hasDates?'No action for this item.':'Resolve missing payment dates before relying on the reconciliation.'},
+      {id:'evidence',name:'Insurance evidence',status:hasEvidence?'READY':'MISSING',detail:hasEvidence?(ev.length+' evidence record(s) loaded'+(evidenceSources.length?' from '+evidenceSources.length+' source file(s)':'')+'.'):'No insurance evidence has been loaded.',next:hasEvidence?'Keep the original certificates/policies/renewals with the audit packet.':'Collect the applicable Workers’ Comp certificates/policies, renewals, self-insurance or exemption evidence.'},
+      {id:'exceptions',name:'Evidence exceptions',status:exceptionCount?'ACTION':'READY',detail:exceptionCount?exceptionCount+' payment(s) have an exception that needs evidence follow-up.':'No EXCEPTION results in the current run.',next:exceptionCount?'Use Download evidence requests and obtain the missing/correct evidence.':'No exception follow-up is currently generated.'},
+      {id:'manual',name:'Manual-review queue',status:manualCount?'REVIEW':'READY',detail:manualCount?manualCount+' payment(s) remain intentionally unresolved.':'No MANUAL REVIEW items in the current run.',next:manualCount?'A reviewer must accept, reject, or request evidence before treating these as resolved.':'No manual-review action is currently required.'},
+      {id:'report',name:'Reconciliation report',status:Array.isArray(results)&&results.length?'READY':'MISSING',detail:Array.isArray(results)&&results.length?'A dated run report can be generated from the current results.':'Run the reconciliation before generating the report.',next:Array.isArray(results)&&results.length?'Download the audit review report and retain it with the source records.':'Run Find Problems first.'},
+      {id:'requests',name:'Evidence request list',status:exceptionCount||manualCount?'ACTION':'READY',detail:(exceptionCount||manualCount)?'The current findings may require targeted evidence requests.':'No targeted evidence requests are currently indicated.',next:(exceptionCount||manualCount)?'Download evidence requests and send each request to the appropriate vendor/record owner.':'No request list is currently needed.'}
+    ];
+  }
+  function renderAuditPacket(){
+    if(!$('results')) return;
+    let card=$('auditPacket');
+    if(!card){
+      card=document.createElement('div'); card.id='auditPacket'; card.className='card';
+      const summary=[...document.querySelectorAll('#results .card')].find(x=>x.querySelector('#sumPayments'));
+      if(summary) summary.after(card); else $('results').prepend(card);
+    }
+    const rows=packetConfig();
+    const counts=rows.reduce((a,x)=>(a[x.status]=(a[x.status]||0)+1,a),{});
+    card.innerHTML='<h2>Audit packet readiness</h2><div class="small" style="margin-bottom:10px">A practical pre-audit checklist for the records around this reconciliation. “READY” means the product has the relevant input/output; it does not mean the insurer has accepted the record.</div>'+
+      '<div class="row" style="margin-bottom:12px"><span class="tag">READY '+(counts.READY||0)+'</span><span class="tag">ACTION '+(counts.ACTION||0)+'</span><span class="tag">REVIEW '+(counts.REVIEW||0)+'</span><span class="tag">MISSING '+(counts.MISSING||0)+'</span></div>'+
+      '<div class="actiongrid"><div class="head">Record / checkpoint</div><div class="head">Status</div><div class="head">Current result</div><div class="head">Next action</div>'+
+      rows.map(x=>'<div data-label="Record / checkpoint"><b>'+esc(x.name)+'</b></div><div data-label="Status"><span class="tag">'+esc(x.status)+'</span></div><div data-label="Current result">'+esc(x.detail)+'</div><div data-label="Next action" class="next">'+esc(x.next)+'</div>').join('')+'</div>'+
+      '<div class="notice" style="margin-top:12px"><b>What this solves:</b> instead of rebuilding the audit file from scattered spreadsheets, certificates and follow-up notes, the reviewer gets one reconciliation run plus a targeted missing-record/action list.</div>';
+  }
+  const originalAnalyze=window.auditReadyAnalyze;
+  window.auditReadyAnalyze=function(){
+    originalAnalyze();
+    setTimeout(renderAuditPacket,0);
+  };
+  const originalSample=$('sample')?.onclick;
+  if($('sample')) $('sample').addEventListener('click',()=>setTimeout(renderAuditPacket,0));
+  const originalReport=window.auditReadyReport;
+  window.auditReadyReport=function(){
+    const base=originalReport();
+    const rows=packetConfig();
+    const packet='<h2>Audit packet readiness</h2><table><thead><tr><th>Checkpoint</th><th>Status</th><th>Current result</th><th>Next action</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+esc(x.name)+'</td><td><b>'+esc(x.status)+'</b></td><td>'+esc(x.detail)+'</td><td>'+esc(x.next)+'</td></tr>').join('')+'</tbody></table>';
+    return base.replace('</body>',packet+'</body>');
+  };
+  window.addEventListener('load',()=>{ if(Array.isArray(results)&&results.length) renderAuditPacket(); });
+})();
+
 })();
