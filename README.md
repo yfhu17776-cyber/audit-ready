@@ -47,7 +47,11 @@ Common variations supported:
 - policy number / policy no / policy #
 - source / file / document / evidence source
 
-The app accepts CSV in the current version. Excel/XLSX import is intentionally not claimed as supported yet.
+The app accepts CSV and Excel/XLSX for payment and evidence tables. PDF and image evidence can also be read locally in the browser, including OCR fallback for scanned documents.
+
+## Commercial MVP boundary
+
+AuditReady is intentionally a focused audit-preparation product rather than a general COI-monitoring platform. It supports configurable review rules, evidence reconciliation, human-review routing, exception reporting, and run metadata. It does not provide carrier-network verification, broker integrations, continuous policy monitoring, or legal risk acceptance.
 
 ## Important boundary
 
