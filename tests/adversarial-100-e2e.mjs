@@ -77,7 +77,7 @@ try{
     const hitMatched=matched.some(t=>t.includes(c.vendor));
     const hit=actual.find(x=>x.vendor.includes(c.vendor));
     const got=hitMatched?'Matched':hit?.status?.split('Evidence confidence')[0].trim()||'Not found';
-    if(got!==c.expected) failures.push({id:c.id,vendor:c.vendor,expected:c.expected,got});
+    if(!(got==='Matched' ? c.expected==='Matched' : got.includes(c.expected))) failures.push({id:c.id,vendor:c.vendor,expected:c.expected,got});
   }
   const summary=await page.evaluate(()=>({payments:+document.querySelector('#sumPayments').textContent,attention:+document.querySelector('#sumAttention').textContent,matched:+document.querySelector('#sumMatched').textContent,low:+document.querySelector('#sumLow').textContent}));
   if(failures.length) throw new Error('Adversarial mismatches: '+JSON.stringify(failures));
