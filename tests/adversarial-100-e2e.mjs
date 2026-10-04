@@ -49,7 +49,7 @@ try{
       XLSX.writeFile(wb,file);
     } else {
       let vendorText=evidenceVendor;
-      if(c.expected==='Matched' && c.id%5===0) vendorText=evidenceVendor.replace('Contractor','CONTRACTOR').replace('LLC',' L.L.C.');
+      if(c.expected==='VERIFIED' && c.id%5===0) vendorText=evidenceVendor.replace('Contractor','CONTRACTOR').replace('LLC',' L.L.C.');
       const html='<html><body style="font-family:Arial,sans-serif;padding:55px"><h1>Certificate of '+(type==='Workers Comp'?'Workers Compensation Insurance':'Commercial General Liability Insurance')+'</h1><p><b>Named Insured:</b> '+vendorText+'</p><p><b>Policy Number:</b> '+policy+'</p><p><b>'+type+':</b> '+(type==='Workers Comp'?'Statutory Workers Compensation':'Commercial General Liability')+'</p><p><b>Effective Date:</b> '+(start==='2026-01-01'?'01/01/2026':start)+'</p><p><b>Expiration Date:</b> '+(end==='2026-12-31'?'12/31/2026':end)+'</p></body></html>';
       await generator.setContent(html);
       if(c.kind==='pdf') await generator.pdf({path:file,format:'Letter'});
