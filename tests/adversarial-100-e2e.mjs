@@ -70,7 +70,7 @@ try{
   if(errors.length) throw new Error('Import errors: '+errors.join(' || '));
   await page.locator('#run').click();
   await page.locator('#results').waitFor({state:'visible',timeout:30000});
-  const actual=await page.evaluate(()=>Array.from(document.querySelectorAll('#attention .actiongrid > div:not(.head)').reduce((acc,_,i,arr)=>{if(i%4===0){acc.push({vendor:arr[i]?.textContent?.trim()||'',status:arr[i+2]?.textContent?.trim()||''})}return acc},[])));
+  const actual=await page.evaluate(()=>Array.from(Array.from(document.querySelectorAll('#attention .actiongrid > div:not(.head)')).reduce((acc,_,i,arr)=>{if(i%4===0){acc.push({vendor:arr[i]?.textContent?.trim()||'',status:arr[i+2]?.textContent?.trim()||''})}return acc},[])));
   const matched=await page.evaluate(()=>Array.from(document.querySelectorAll('#okay > div')).map(x=>x.textContent||''));
   const failures=[];
   for(const c of cases){
