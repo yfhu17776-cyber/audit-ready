@@ -73,3 +73,6 @@ Single-page static web application. No backend is required for the current funct
 ## Validation note
 
 The repository contains a built-in stress-test sample covering renewal gaps, self-insurance, non-WC evidence, missing policy metadata, and other edge cases. The public GitHub Pages deployment should still be treated as a deployment surface rather than a substitute for browser testing with representative customer data.
+
+
+<!-- regression trigger: 2026-10-04T12:38:12.698Z -->
