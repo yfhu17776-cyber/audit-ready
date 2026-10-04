@@ -24,7 +24,8 @@ const manifest=[];
 try {
   await page.goto(site,{waitUntil:'domcontentloaded',timeout:60000});
   await page.locator('#auditStart').waitFor({state:'visible',timeout:30000});
-  const pdfEngine=await page.evaluate(()=>({ok:!!window.pdfjsLib,version:window.pdfjsLib?.version||null}));
+  await page.waitForFunction(()=>!!window.pdfjsLib,{timeout:30000});
+  const pdfEngine=await page.evaluate(()=>({ok:!!window.pdfjsLib,version:window.pdfjsLib?.version||'local-shim'}));
   if(!pdfEngine.ok) throw new Error('PDF engine unavailable');
 
   const generator=await browser.newPage({viewport:{width:1200,height:900}});
