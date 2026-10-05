@@ -1,0 +1,22 @@
+# InsureRecon
+
+InsureRecon is a browser-based Workers' Comp audit evidence reconciliation tool for U.S. construction contractors and subcontractor-heavy businesses.
+
+## What it does
+- Imports payment/AP records.
+- Reads Workers' Comp, self-insurance, exemption and related evidence from CSV/XLSX/PDF/images.
+- Matches payments to vendor evidence and coverage dates.
+- Flags missing evidence, wrong evidence type, coverage gaps, outside-period records and uncertain document dates.
+- Produces an evidence map, review list, evidence request list and audit-preparation report.
+- Keeps uncertain cases in MANUAL REVIEW rather than auto-confirming them.
+
+## What it does not do
+- It is not legal advice.
+- It does not determine legal coverage, contractor status, payroll classification or final premium.
+- It is not continuous carrier verification and is not a generic COI expiration tracker.
+
+## Trial
+https://yfhu17776-cyber.github.io/audit-ready/
+
+## Pricing
+7.70 USDT/month is the planned self-serve price. Live payment receiving details are not configured until the product's utility is validated.
