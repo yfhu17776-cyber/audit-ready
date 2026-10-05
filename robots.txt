@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yfhu17776-cyber.github.io/audit-ready/sitemap.xml
