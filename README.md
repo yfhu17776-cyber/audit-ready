@@ -20,7 +20,7 @@ InsureRecon is intentionally different from a general Certificate of Insurance (
 - Detects evidence-period gaps and missing/invalid evidence dates.
 - Flags missing policy numbers separately when otherwise relevant Workers’ Comp evidence covers the payment date.
 - Shows an evidence chain, reason, source reference, gap length when applicable, and next action for each review item.
-- Provides a filterable review queue by exception type.
+- Separates deterministic exceptions from uncertain manual-review items.
 - Exports an exception CSV and a payment-to-evidence mapping CSV.
 - Prints the report or saves it as PDF from the browser.
 - Processes imported data locally in the browser; there is no server upload endpoint in the current app.
