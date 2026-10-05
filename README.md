@@ -117,3 +117,7 @@ InsureRecon is deliberately not a carrier-verification service, legal compliance
 
 
 Accuracy rule: uncertain document dates are never treated as confirmed evidence.
+
+
+## Free distribution strategy
+InsureRecon is designed for organic discovery rather than paid advertising. The public site includes search-intent landing pages, a sitemap, robots.txt and an LLM-readable product description. The distribution plan prioritizes free product-launch and discovery channels such as Product Hunt, AlternativeTo, SaaSHub, Uneed, Peerlist, Indie Hackers, Show HN and relevant Reddit communities. Submissions should be relevant and useful, not bulk spam. Search indexing can take time after publication; Google recommends a sitemap and URL inspection/recrawl workflow for new pages.
